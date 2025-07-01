@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Zero-Shot Depth-Aware Image Editing with Diffusion Models</title>
+    <link rel="icon" type="image/x-icon" href="static/img/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="Zero-Shot Depth-Aware Image Editing with Diffusion Models" />
+    <meta property="og:description" content="A 3D-grounded visual editing framework providing precise control and composition of various visual elements, including objects, camera, and background." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jcchen.me/blenderfusion_page_dev/" />
+    <meta property="og:image" content="blenderfusion_page_dev/static/img/preview.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Zero-Shot Depth-Aware Image Editing with Diffusion Models" />
+    <meta name="twitter:description" content="A 3D-grounded visual editing framework providing precise control and composition of various visual elements, including objects, camera, and background." />
+    <meta name="twitter:url" content="https://jcchen.me/blenderfusion_page_dev/" />
+    <meta name="twitter:image" content="blenderfusion_page_dev/static/img/preview.png" />
+    <script src="static/js/distill_template.v2.js"></script>
+    <!-- Removed polyfill.io (unreliable service, ES6 widely supported) -->
+    <script id="MathJax-script" async src="npm/mathjax-3/es5/tex-mml-chtml.js"></script>
+    <script src="d3.v5.min.js"></script>
+    <script src="d3-collection.v1.min.js"></script>
+    <script src="nstrayer/slid3r/master/dist/slid3r.js"></script>
+    <script defer="" src="static/js/hider.js"></script>
+    <script src="static/js/image_interact.js"></script>
+    <script src="static/js/switch_videos.js"></script>
+    <!-- <link rel="stylesheet" href="static/css/bulma.min.css"> -->
+    <!-- Removed bulma-carousel (not used) -->
+    <!-- Removed bulma-slider (deprecation warnings) -->
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="gh/jpswalsh/academicons-1/css/academicons.min.css">
+    <link rel="stylesheet" href="npm/katex-0.10.2/dist/katex.min.css" >
+    <script defer src="npm/katex-0.10.2/dist/katex.min.js" ></script>
+    <script defer src="npm/katex-0.10.2/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    <script defer src="static/js/fontawesome.all.min.js"></script>
+    <!-- medium zoom https://github.com/francoischalifour/medium-zoom -->
+    <script src="npm/jquery-3.7.1/dist/jquery.min.js"></script>  <!-- jquery -->
+    <script defer src="static/js/medium-zoom.min.js"></script>
+    <script defer src="static/js/zoom.js"></script>
+    <!-- Removed bulma-carousel and bulma-slider scripts (not used) -->
+    <script src="static/js/index.js"></script>
+
+    <script type="module" src="https://unpkg.com/img-comparison-slider@7.0.0/dist/index.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" media="all" href="clarity/clarity.css" />
+</head>
+<body>
+    <div class="header-wrapper">
+        <div class="header-container" id="header-container">
+            <div class="header-content">
+                <h1 style="margin-top: 0px">Zero-Shot Depth-Aware Image Editing with Diffusion Models</h1>
+                <!-- <h2>3D-Grounded Visual Editing and Generative Compositing </h2> -->
+                <!-- <p style="color: #FFF7D4">
+                    A <strong style="color: #ffe099">3D-grounded
+                    visual compositing framework</strong>, providing precise control and composition of various visual elements, including objects, camera, and background. 
+                    BlenderFusion employs a <strong style="color: #ffe099">layering-editing-compositing</strong> process:
+                </p> -->
+
+                <p style="color: #FFF7D4">
+                    Our method enables <strong style="color: #ffe099">precise depth control</strong>  over object placement and scene composition in 3D space. 
+                    It introduces a <strong style="color: #ffe099">zero-shot compositing strategy</strong> that fuses these layers using internal features of pretrained diffusion models, producing realistic results without the need for post-processing. 
+                    We demonstrate high-quality edits in <em>scene compositing</em> and <em>object insertion</em>, achieving accurate depth ordering and visual consistency.
+                </p>
+                <div class="icon-container">
+                    <div class="icon-item">
+                        <img src="static/img/icons/buffer.svg">
+                        <div>
+                            <strong>Depth-Guided Layer Decomposition</strong>: A novel layering method to decompose a given image into editable layers using its depth map and a user-specified depth value.
+                        </div>
+                    </div>
+                    <div class="icon-item">
+                        <img src="static/img/icons/compositing.svg">
+                        <div>
+                            <strong>Feature-Guided Layer Compositing</strong>: A zero-shot method that leverages pretrained diffusion models to progressively blend multiple layers with feature guidance, ensuring photorealistic lighting and color harmonization.
+                        </div>
+                    </div>
+                    <div class="icon-item">
+                        <img src="static/img/icons/geometry.svg">
+                        <div>
+                            <strong>Depth-Aware Editing Applications</strong>: Demonstrates the effectiveness of depth-based layering in novel editing tasks such as object insertion and scene compositing at a user-specified depth.
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="button-container">
+                    <!-- replace pdf -->
+                    <a href="pdf/main_paper.pdf" class="button paper-link" target="_blank">
+                        <span class="icon is-small">
+                            <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>PDF</span>
+                    </a>
+
+                    <!-- replace arxiv -->
+                    <!-- <a href="https://arxiv.org/abs/2506.17450" class="button paper-link" target="_blank">
+                        <span class="icon is-small">
+                            <i class="ai ai-arxiv"></i>
+                        </span>
+                        arXiv
+                    </a> -->
+
+                    <a href="https://github.com/your-username/your-repo" class="button paper-link" target="_blank">
+                        <span class="icon is-small">
+                            <i class="fab fa-github"></i> <!-- Font Awesome GitHub icon -->
+                        </span>
+                        Code
+                    </a>
+
+                </div>
+            </div>
+            <div class="header-image">
+                <img src="static/img/mdf.png" alt="Teaser Image" class="teaser-image">
+            </div>
+        </div>
+    </div>
+<d-article>
+    <d-contents>
+        <nav>
+            <h4>Contents</h4>
+            <div class="nav-section"><a href="#abstract">Abstract</a></div>
+            <div class="nav-section"><a href="#motivation">Motivation</a></div>
+            <div class="nav-section"><a href="#method-overview">Method Overview</a></div>
+            <ul class="nav-subsections">
+                <li><a href="#layering">Step 1: Depth-Guided Layer Decomposition</a></li>
+                <li><a href="#editing">Step 2: Feature-Guided Layer Composition</a></li>
+            </ul>
+            <div class="nav-section"><a href="#results">Results Demos</a></div>
+            <ul class="nav-subsections">
+                <li><a href="#scene-composition">Scene Composition</a></li>
+                <li><a href="#scene-relighting">Scene Relighting</a></li>
+                <li><a href="#object-insertion">Depth aware object Insertion</a></li>
+                <li><a href="#object-movement">Moving Object in a scene</a></li>
+            </ul>
+        </nav>
+    </d-contents>
+    <div class="byline">
+        <div class="byline-container">
+            <p class="authors">
+                <a href="https://rishubhpar.github.io/" class="author-link" target="_blank">Rishubh Parihar<sup>1,†</sup></a> &emsp;
+                <a href="https://scholar.google.com/citations?user=Hup_9BkAAAAJ&hl=en" class="author-link" target="_blank">Sachidanand VS<sup>1</sup></a> &emsp;
+                <a href="https://cds.iisc.ac.in/faculty/venky/" class="author-link" target="_blank">Venkatesh Babu R<sup>1</sup></a> &emsp;
+            </p>
+            <div class="affiliations">
+                <p>
+                    <span class="affiliation-link"><sup>1</sup>Indian Institute of Science</span>
+                </p>
+            </div>
+            <p class="author-notes" style="text-align: center;">
+                <span class="author-note"><sup>†</sup>Corresponding authors</span>
+            </p>
+        </div>
+    </div>
+    <!-- TL;DR Section -->
+    <div class="tldr-section">
+        <div class="tldr-container">
+            <div class="tldr-content">
+                <video 
+                    controls 
+                    autoplay 
+                    muted 
+                    loop 
+                    playsinline 
+                    webkit-playsinline 
+                    preload="metadata" 
+                    class="demo-video"
+                >
+                    <source src="static/video/slides.mp4" type="video/mp4">
+                    <!-- <source src="static/video/demo.webm" type="video/webm"> -->
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-caption">
+                    <strong>TL;DR:</strong> BlenderFusion combines precise 3D geometric control through Blender with a generative compositor (adapted from pre-trained Stable Diffusion v2) to enable percise geometry editing and versatile visual compositing, which are hard to achieve through the text control protocol.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <h2 id="method-overview" class="text">Abstract </h2>
+    <div id="abstract"></div>
+    <p class="text">
+        In this work, we introduce a generalized zero-shot framework for depth-aware image editing. Our approach enables realistic scene editing, 
+        such as object insertion at specific depths and blending a scene's foreground with another's background while preserving the identity of the input scene. 
+        The key idea is to integrate Depth-Guided Layer Decomposition (DeGLaD) in the feature space of diffusion models. Specifically, we propose Feature-Guided Layer Composition (FeatGLaC), 
+        a layered guidance mechanism on the feature space of denoising UNet model which allows for image editing by progressively steering the 
+        latents toward the desired edit while maintaining the orignal scene appearance throughout the denoising process. We validate our approach on 
+        two depth-aware editing tasks: a) object insertion that preserves object and scene identity with seamless blending, and b) depth-based compositing of two real scenes 
+        with accurate lighting.
+    </p>
+    <ul class="text" style="margin-top: 0em;">
+        <li><strong>Depth aware object Insertion</strong>: object insertion that preserves object and scene identity with seamless blending.</li>
+        <li><strong>Scene Composition</strong>: Depth-based compositing of two real scenes with accurate lighting.</li>
+    </ul>
+    </div>
+
+
+    <h2 id="method-overview" class="text">Motivation </h2>
+    <div id="motivation">
+    <p class="text">
+        Depth Guided Layer Decomposition (DeGLaD) is an efficient 2.5D scene representation that allows for depth-aware editing. 
+        However, when directly applied in the pixel space, it struggles to model the accurate foreground and 
+        background scene interactions, particularly in terms of scene lighting, color harmonization, 
+        and shadow generation (as shown below). To address this, our approach leverages the rich image generation
+        priors from pretrained image diffusion models via FeatGLaC. This enables depth-consistent, realistic
+        scene compositions while preserving details in foreground and background regions. 
+    </p>
+    </div>
+
+    
+    <script>
+    window.MathJax = {
+        tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+    };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <!-- <p class="text">
+        Despite tremendous progress in image generation and editing, precise visual compositing remains challenging for state-of-the-art models with text interface. Look at the following example with GPT-4o image generation, results are obtained on June 9th, 2025 through the ChatGPT App<d-cite key="openai2024gpt4o-image"></d-cite>.
+    </p>
+    <div class="responsive-image-container">
+        <figure style="margin: 0; background: transparent; border: none; padding: 0;">
+            <img src="static/img/t2i_compositing_example.jpg" alt="T2I Compositing Example" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+        </figure>
+        <figcaption style="text-align: center; margin: 10px 0 0 0; padding: 0; font-style: italic; color: #666; font-size: 0.9em; background: none; border: none; box-shadow: none;">
+            <strong>Challenges in text-based visual compositing:</strong> While advanced text-to-image models excel at semantic-level control, they struggle with geometric-level instructions for precise spatial relationships, object poses, and camera viewpoints—demonstrating the inadequacy of text interfaces for complex visual compositing tasks.
+        </figcaption>
+    </div>
+    <p class="text">
+        While state-of-the-art text-to-image models excel at semantic-level control and can iteratively correct object appearance or shape, they struggle with geometric-level instructions due to limited 3D understanding.
+        Moreover, text interfaces are inherently inadequate for precise geometric control and complex compositing—describing spatial relationships, object geometries or poses, and camera viewpoints through text prompts is often tedious, ambiguous, and imprecise.
+    </p>
+    <p class="text">
+        BlenderFusion addresses these limitation by <strong>combining the best of both worlds</strong>: we decompose visual compositing into <strong>3D-grounded editing</strong> and <strong>generative synthesis</strong>. 
+        Instead of relying solely on text prompts, we leverage graphics engines (Blender) for precise geometric control and flexible manipulation, then employ diffusion models as a generative compositor to synthesize the final photorealistic result.
+        This approach provides flexible and fine-grained control over objects, camera, and background, while harnessing the powerful synthesis capabilities of modern generative models.
+        In the following section, we detail our three steps that mirrors the <strong>layering-editing-compositing</strong> process of traditional visual compositing.
+    </p>
+    </div> -->
+    <h2 id="method-overview" class="text">Method Overview </h2>
+    <h3 id="layering" class="text first-subsection"><img src="static/img/icons/buffer.svg" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">Step 1: Depth-Guided Layer Decomposition</h3>
+    <p class="text">
+       Scene depth serves as an effective representation to model the underlying scene geometry and enables enhanced control over 3D scene structure, Given an input image,
+       its depth map, and a user-specified depth d, DeGLaD decomposes the image into foreground (depth < d) and background (depth > d) layers
+       based on the scene depth. This decomposition enables precise depth-aware editing via independent editing of each layer,
+    </p>
+     <p>
+        \[
+        \mathbf{M_{\text{fg}}(i,j)} = \mathbb{I} \left( D(i,j) &lt; d \right), \quad
+        \mathbf{M_{\text{bg}}(i,j)} = \mathbb{I} \left( D(i,j) \geq d \right)
+        \]
+    </p>
+    <div class="responsive-image-container">
+        <figure style="margin: 0; background: transparent; border: none; padding: 0;">
+            <img src="static/img/website1.png" alt="Step 1" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+        </figure>
+        <figcaption style="text-align: center; margin: 10px 0 0 0; padding: 0; font-style: italic; color: #666; font-size: 0.9em; background: none; border: none; box-shadow: none;">
+            <strong>Step 1: Depth-Guided Layer Decomposition:</strong> Obtain foreground and background layer based on user given depth.
+        </figcaption>
+    </div>
+    <h3 id="editing" class="text"><img src="static/img/icons/compositing.svg" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">Step 2: Feature guided Layer Composition</h3>
+    <p class="text">
+        We introduce Feature-Guided Layer Composition (FeatGLaC), a layered representation embedded in the feature space of the 
+            denoising U-Net within diffusion models. These layered feature representation enables precise control over
+            the generated image.  However, directly α compsiting the layers during generation can push the latents outside the original 
+            distribution, resulting in unnatural editing results. To address this, we propose a softer way to edit the diffusion 
+            latents with FeatGLaC which is a guidance mechanism, where the diffusion latents are progressively steered toward the desired edit at each 
+            denoising step. 
+    </p>
+    <div class="responsive-image-container">
+        <figure style="margin: 0; background: transparent; border: none; padding: 0;">
+            <img src="static/img/website2.png" alt="Step 2" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+        </figure>
+        <figcaption style="text-align: center; margin: 10px 0 0 0; padding: 0; font-style: italic; color: #666; font-size: 0.9em; background: none; border: none; box-shadow: none;">
+            <strong>Step 2: Feature guided Layer Composition:</strong> Guide the foreground layer based of based on the task specific mask obtained from DeGLaD.
+        </figcaption>
+    </div>
+    
+    <p>
+        <span style="color: blue; font-weight: bold; font-style: italic;">Intuition:</span>
+        <span style="font-style: italic;">
+            We force the foreground layer ($fg$) of $\Psi^{c}_{i,t}$ to be close to the foreground layer of $\Psi_{i,t}^a$
+            and the background layer ($bg$) of $\Psi^{c}_{i,t}$ to be close to the background layer of $\Psi_{i,t}^b$
+            as shown in above Fig. This is implemented by defining $\mathcal{G}$ :
+        </span>
+        </p>
+        \[
+            \sum_i \left\| \mathbf{M^a_{fg}} \cdot (\Psi^{a}_{i,t} - \Psi^{c}_{i,t}) \right\|^2 +  
+            \left\| \mathbf{M^b_{bg}} \cdot (\Psi^{b}_{i,t} - \Psi^{c}_{i,t}) \right\|^2
+        \]
+    </p>
+    <!--  -->
+    <h2 id="results" class="text">Results</h2>
+    <p class="text">
+        We perform 4 depth aware editing using our method, which are all based on the layering-editing-compositing process described above.
+    </p>
+    <ul class="text" style="margin-top: 0em;">
+        <li><strong>Depth-Aware Scene Composition</strong> </li>
+        <li><strong>Scene Relighting</strong></li>
+        <li><strong>Depth-Aware Object Insertion </strong></li>
+        <li><strong>Placing Object at different locations</strong></li>
+    </ul>
+    
+    <div class="container blog main">
+        <h2 id="scene-composition"  style="text-align: center;">
+            Depth-Aware Scene Composition
+        </h2>
+        
+        <p class="text", style="text-align: justify;">
+        Our method generates realistic depth-aware scene composite image with natural illumination interactions and preserving the foreground and background conents.
+        </p>
+    </div>
+
+    
+    <div class="container blog main gray extra-large">
+        
+        <p class="text" style="text-align: center; color: rgba(4, 4, 127, 0.993); font-style: italic;">
+            Hover over the background images to compose the scene with selected background image.
+        </p>
+                
+        <p class="text" style="text-align: center; color: brown; font-weight: bold;">
+            [Please wait for a few minutes to load all the images]
+        </p>
+        
+        <div class="grid2x3-container" id="grid2x3">
+            <!-- Currently using only two grid, as it looks good in high quality--> 
+            <!-- Grid Item 1 -->
+            <!-- <div class="grid2x3-item">
+                <div class="grid2x3-image-container">
+                    <div class="grid2x3-thumbnails-wrapper">
+                        <h4 class="thumbnail-title" style="text-align: center;">Background</h4>
+                        <div class="grid2x3-thumbnails-container">
+                            <img src="assets/figures/sc/ref/2_ref1.png" alt="Thumbnail 1" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-1" data-hover-src="assets/figures/sc/res/2_1.png">
+                            <img src="assets/figures/sc/ref/2_ref3.jpg" alt="Thumbnail 2" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-1" data-hover-src="assets/figures/sc/res/2_3.png">
+                            <img src="assets/figures/sc/ref/2_ref5.jpg" alt="Thumbnail 3" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-1" data-hover-src="assets/figures/sc/res/2_5.png">
+                        </div>
+                    </div>
+                    <div class="grid2x3-large-image-wrapper">
+                        <h4 class="Output" style="text-align: center; margin-top: 10px;">Output</h4> 
+                        <img src="assets/figures/sc/src/2.png" alt="Large Image 1" class="grid2x3-large-image" id="grid2x3-large-image-1">
+                    </div>
+                </div>
+            </div> -->
+            <!-- Repeat Grid Items 2 to 6 -->
+            <!-- Grid Item 2 -->
+            <div class="grid2x3-item">
+                <div class="grid2x3-image-container">
+                    <div class="grid2x3-thumbnails-wrapper">
+                        <h4 class="thumbnail-title" style="text-align: center;">Background</h4>
+                        <div class="grid2x3-thumbnails-container">
+                            <img src="assets/figures/sc/ref/3_ref1.png" alt="Thumbnail 1" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-3" data-hover-src="assets/figures/sc/res/3_1.png">
+                            <img src="assets/figures/sc/ref/3_ref2.jpg" alt="Thumbnail 2" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-3" data-hover-src="assets/figures/sc/res/3_2.jpg">
+                            <img src="assets/figures/sc/ref/3_ref3.jpg" alt="Thumbnail 3" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-3" data-hover-src="assets/figures/sc/res/3_3.png">
+                        </div>
+                    </div>
+                    <div class="grid2x3-large-image-wrapper">
+                        <h4 class="Output" style="text-align: center; margin-top: 10px;">Output</h4> 
+                        <img src="assets/figures/sc/src/3.jpg" alt="Large Image 3" class="grid2x3-large-image" id="grid2x3-large-image-3">
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid2x3-item">
+                <div class="grid2x3-image-container">
+                    <div class="grid2x3-thumbnails-wrapper">
+                        <h4 class="thumbnail-title" style="text-align: center;">Background</h4>
+                        <div class="grid2x3-thumbnails-container">
+                            <img src="assets/figures/sc/ref/t_ref2.png" alt="Thumbnail 1" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-2" data-hover-src="assets/figures/sc/res/t2.png">
+                            <img src="assets/figures/sc/ref/t_ref3.jpg" alt="Thumbnail 2" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-2" data-hover-src="assets/figures/sc/res/t3.png">
+                            <img src="assets/figures/sc/ref/t_ref4.png" alt="Thumbnail 3" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-2" data-hover-src="assets/figures/sc/res/t4.png">
+                        </div>
+                    </div>
+                    <div class="grid2x3-large-image-wrapper">
+                        <h4 class="Output" style="text-align: center; margin-top: 10px;">Output</h4> 
+                        <img src="assets/figures/sc/src/t.jpg" alt="Large Image 2" class="grid2x3-large-image" id="grid2x3-large-image-2">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container blog main">
+        <h2 id="scene-relighting" style="text-align: center;">
+            Scene Relighting
+        </h2>
+        
+        <p class="text", style="text-align: justify;">
+            Our method can also be used for scene relighting, where we want to relight the foreground scene based on the background illumination.
+        </p>
+    </div>
+
+    <div class="container blog main gray extra-large">
+        
+        <p class="text" style="text-align: center; color: rgba(4, 4, 127, 0.993); font-style: italic;">
+            Hover over the background image to relight the foreground image in the same illumination.
+        </p>
+
+        <p class="text" style="text-align: center; color: brown; font-weight: bold;">
+            [Please wait for a few minutes to load all the images]
+        </p>
+        
+        <div class="grid1x3-container" id="grid1x3">
+            <!-- Currently using only two grid, as it looks good in high quality--> 
+            <!-- Grid Item 1 -->
+            <!-- <div class="grid2x3-item">
+                <div class="grid2x3-image-container">
+                    <div class="grid2x3-thumbnails-wrapper">
+                        <h4 class="thumbnail-title" style="text-align: center;">Background</h4>
+                        <div class="grid2x3-thumbnails-container">
+                            <img src="assets/figures/sc/ref/2_ref1.png" alt="Thumbnail 1" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-1" data-hover-src="assets/figures/sc/res/2_1.png">
+                            <img src="assets/figures/sc/ref/2_ref3.jpg" alt="Thumbnail 2" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-1" data-hover-src="assets/figures/sc/res/2_3.png">
+                            <img src="assets/figures/sc/ref/2_ref5.jpg" alt="Thumbnail 3" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-1" data-hover-src="assets/figures/sc/res/2_5.png">
+                        </div>
+                    </div>
+                    <div class="grid2x3-large-image-wrapper">
+                        <h4 class="Output" style="text-align: center; margin-top: 10px;">Output</h4> 
+                        <img src="assets/figures/sc/src/2.png" alt="Large Image 1" class="grid2x3-large-image" id="grid2x3-large-image-1">
+                    </div>
+                </div>
+            </div> -->
+            <!-- Repeat Grid Items 2 to 6 -->
+            <!-- Grid Item 2 -->
+            <div class="grid1x3-item">
+                <div class="grid1x3-image-container">
+                    <div class="grid1x3-thumbnails-wrapper">
+                        <h4 class="thumbnail-title" style="text-align: center;">Background</h4>
+                        <div class="grid1x3-thumbnails-container">
+                            <img src="assets/figures/sr/ref/2_ref4.png" alt="Thumbnail 1" class="grid1x3-thumbnail"
+                                data-target="grid1x3-large-image-2" data-hover-src="assets/figures/sr/res/3_4.png">
+                            <img src="assets/figures/sr/ref/2_ref3.jpg" alt="Thumbnail 2" class="grid1x3-thumbnail"
+                                data-target="grid1x3-large-image-2" data-hover-src="assets/figures/sr/res/3_2.png">
+                            <img src="assets/figures/sr/ref/9_ref4.jpg" alt="Thumbnail 3" class="grid1x3-thumbnail"
+                                data-target="grid1x3-large-image-2" data-hover-src="assets/figures/sr/res/3_3.png">
+                        </div>
+                    </div>
+                    <div class="grid1x3-large-image-wrapper">
+                        <h4 class="Output" style="text-align: center; margin-top: 10px;">Output</h4> 
+                        <img src="assets/figures/sr/src/3.png" alt="Large Image 2" class="grid1x3-large-image" id="grid1x3-large-image-2">
+                    </div>
+                </div>
+            </div>
+            <div class="grid1x3-item">
+                <div class="grid1x3-image-container">
+                    <div class="grid1x3-thumbnails-wrapper">
+                        <h4 class="thumbnail-title" style="text-align: center;">Background</h4>
+                        <div class="grid1x3-thumbnails-container">
+                            <img src="assets/figures/sr/ref/2_ref1.png" alt="Thumbnail 1" class="grid1x3-thumbnail"
+                                data-target="grid1x3-large-image-3" data-hover-src="assets/figures/sr/res/2_1.png">
+                            <img src="assets/figures/sr/ref/2_ref2.jpg" alt="Thumbnail 2" class="grid1x3-thumbnail"
+                                data-target="grid1x3-large-image-3" data-hover-src="assets/figures/sr/res/2_2.png">
+                            <img src="assets/figures/sr/ref/2_ref3.jpg" alt="Thumbnail 3" class="grid1x3-thumbnail"
+                                data-target="grid1x3-large-image-3" data-hover-src="assets/figures/sr/res/2_3.png">
+                        </div>
+                    </div>
+                    <div class="grid1x3-large-image-wrapper">
+                        <h4 class="Output" style="text-align: center; margin-top: 10px;">Output</h4> 
+                        <img src="assets/figures/sr/src/2.png" alt="Large Image 3" class="grid1x3-large-image" id="grid1x3-large-image-3">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container blog main">
+        <h2 id="object-insertion" style="text-align: center;">
+            Depth-Aware Object Insertion 
+        </h2>
+        <p class="text", style="text-align: justify;">
+            Given a single object image, our method can realistically insert the object at a precise depth, with natural blending with scene content, color harmonization, and appropriate shadows. 
+        </p>
+    </div>  
+
+        
+    <div class="container blog main gray extra-large">
+        <p class="text" style="text-align: center; color: rgba(4, 4, 127, 0.993); font-style: italic;">
+            Hower over the object thumbnail image to insert it in the scene. 
+        </p>
+        <div class="columns-4">
+            <!-- Grid Item 1 -->
+            <div class="grid-item">
+                <div class="image-wrapper">
+                    <img src="assets/figures/ob/src/4_src.png" alt="Main Image 1" class="main-image" id="large-image-1">
+                    <div class="overlay-container">
+                        <img src="assets/figures/ob/ref/4_ref.png" alt="Small Image 1" class="small-image"
+                             data-target="large-image-1" data-hover-src="assets/figures/ob/res/4_res.png">
+                    </div>
+                </div>
+            </div>
+            <!-- Grid Item 2 -->
+            <div class="grid-item">
+                <div class="image-wrapper">
+                    <img src="assets/figures/ob/src/1_src.png" alt="Main Image 2" class="main-image" id="large-image-2">
+                    <div class="overlay-container">
+                        <img src="assets/figures/ob/ref/1_ref.png" alt="Small Image 2" class="small-image"
+                             data-target="large-image-2" data-hover-src="assets/figures/ob/res/1_res.png">
+                    </div>
+                </div>
+            </div>
+            <!-- Grid Item 3 -->
+            <div class="grid-item">
+                <div class="image-wrapper">
+                    <img src="assets/figures/ob/src/3_src.png" alt="Main Image 3" class="main-image" id="large-image-3">
+                    <div class="overlay-container">
+                        <img src="assets/figures/ob/ref/3_ref.png" alt="Small Image 3" class="small-image"
+                             data-target="large-image-3" data-hover-src="assets/figures/ob/res/3_res.png">
+                    </div>
+                </div>
+            </div>
+            <!-- Grid Item 4 -->
+            <div class="grid-item">
+                <div class="image-wrapper">
+                    <img src="assets/figures/ob/src/2_src.png" alt="Main Image 4" class="main-image" id="large-image-4">
+                    <div class="overlay-container">
+                        <img src="assets/figures/ob/ref/2_ref.png" alt="Small Image 4" class="small-image"
+                             data-target="large-image-4" data-hover-src="assets/figures/ob/res/2_res.png">
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for additional grid items -->
+        </div>
+
+        <div class="columns-4">
+            <!-- Grid Item 1 -->
+            <div class="grid-item">
+                <div class="image-wrapper">
+                    <img src="assets/figures/ob/src/5_src.png" alt="Main Image 5" class="main-image" id="large-image-5">
+                    <div class="overlay-container">
+                        <img src="assets/figures/ob/ref/5_ref.png" alt="Small Image 5" class="small-image"
+                             data-target="large-image-5" data-hover-src="assets/figures/ob/res/5_res.png">
+                    </div>
+                </div>
+            </div>
+            <!-- Grid Item 2 -->
+            <div class="grid-item">
+                <div class="image-wrapper">
+                    <img src="assets/figures/ob/src/6_src.png" alt="Main Image 6" class="main-image" id="large-image-6">
+                    <div class="overlay-container">
+                        <img src="assets/figures/ob/ref/6_ref.png" alt="Small Image 6" class="small-image"
+                             data-target="large-image-6" data-hover-src="assets/figures/ob/res/6_res.png">
+                    </div>
+                </div>
+            </div>
+            <!-- Grid Item 3 -->
+            <div class="grid-item">
+                <div class="image-wrapper">
+                    <img src="assets/figures/ob/src/9_src.png" alt="Main Image 7" class="main-image" id="large-image-7">
+                    <div class="overlay-container">
+                        <img src="assets/figures/ob/ref/9_ref.png" alt="Small Image 7" class="small-image"
+                             data-target="large-image-7" data-hover-src="assets/figures/ob/res/9_res.png">
+                    </div>
+                </div>
+            </div>
+            <!-- Grid Item 4 -->
+            <div class="grid-item">
+                <div class="image-wrapper">
+                    <img src="assets/figures/ob/src/8_src.png" alt="Main Image 8" class="main-image" id="large-image-8">
+                    <div class="overlay-container">
+                        <img src="assets/figures/ob/ref/8_ref.png" alt="Small Image 8" class="small-image"
+                             data-target="large-image-8" data-hover-src="assets/figures/ob/res/8_res.png">
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for additional grid items -->
+        </div>
+    </div>
+    
+    <!-- For object moving -->
+    <div class="container blog main gray extra-large">
+        <h2 id="object-movement" style="text-align: center;">
+            Placing Object at different locations
+        </h2>
+        <p class="text" style="text-align: center; color: rgba(4, 4, 127, 0.993); font-style: italic;">
+            Hover over the image to move the placed object in the scene. 
+        </p>
+        <div class="grid1x3-container_new" id="new-grid1x3">
+            <!-- Grid Item 1 -->
+            <div class="grid1x3-item-move">
+                <div class="grid1x3-image-container">
+                    <img src="assets/figures/obm/src/1_src.png" 
+                         alt="Main Image 1" 
+                         class="hover-image" 
+                         data-hover-src="assets/figures/obm/res/1_res.png">
+                </div>
+            </div>
+            <!-- Grid Item 2 -->
+            <div class="grid1x3-item-move">
+                <div class="grid1x3-image-container">
+                    <img src="assets/figures/obm/src/7_src.png" 
+                         alt="Main Image 2" 
+                         class="hover-image" 
+                         data-hover-src="assets/figures/obm/res/7_res.png">
+                </div>
+            </div>
+            <!-- Grid Item 3 -->
+            <div class="grid1x3-item-move">
+                <div class="grid1x3-image-container">
+                    <img src="assets/figures/obm/src/3_src.png" 
+                         alt="Main Image 3" 
+                         class="hover-image" 
+                         data-hover-src="assets/figures/obm/res/3_res.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    </d-article>
+    <d-appendix>
+        <h3 style="margin-top: 30px; margin-bottom: 15px; font-size: 1.3em; color: #2c3e50;">BibTeX</h3>
+        <div class="bibtex-container" style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px; margin: 15px 0; font-family: 'Courier New', Consolas, monospace; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <pre style="margin: 0; overflow-x: auto; line-height: 1.4; color: #2c3e50;"><code>@article{chen2025blenderfusion,
+  title={BlenderFusion: 3D-Grounded Visual Editing and Generative Compositing},
+  author={Chen, Jiacheng and Mehran, Ramin and Jia, Xuhui and Xie, Saining and Woo, Sanghyun},
+  year={2025},
+  journal={arXiv preprint arXiv:2506.17450}
+}</code></pre>
+        </div>
+        <d-footnote-list></d-footnote-list>
+        <d-citation-list></d-citation-list>
+    </d-appendix>
+    <!-- bibliography will be inlined during Distill pipeline's pre-rendering -->
+    <d-bibliography src="bibliography.bib"></d-bibliography>
+    <!-- Template acknowledgment footnote -->
+    <div style="width: 100%; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border-top: 1px solid #cbd5e1; margin-top: 40px; padding: 20px 0; text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <p style="color: #64748b; font-size: 0.9em; font-style: italic; margin: 0; line-height: 1.5;">
+                This project page template is adapted from <a href="https://blenderfusion.github.io/" target="_blank" style="color: #3b82f6; text-decoration: none; font-weight: 500;">BlenderFusion</a>, thanks for the beautiful template! 
+            </p>
+        </div>
+    </div>
+    <!-- <script src="./static/js/nav-bar.js"></script> -->
+    
+    <!-- FOr Adding Layeredit results -->
+    <script src="assets/scripts/main2.js"></script>    
+
+    <script>
+        // JavaScript to handle hover interaction for small images
+        document.querySelectorAll('.small-image').forEach(smallImage => {
+            let originalSrc; // Variable to store the original src
+        
+            smallImage.addEventListener('mouseenter', () => {
+                // Get the target large image ID and hover source
+                const targetId = smallImage.getAttribute('data-target');
+                const hoverSrc = smallImage.getAttribute('data-hover-src');
+        
+                // Change the large image's source
+                const largeImage = document.getElementById(targetId);
+                if (largeImage) {
+                    originalSrc = largeImage.src; // Save the original src
+                    largeImage.src = hoverSrc;
+                }
+            });
+        
+            smallImage.addEventListener('mouseleave', () => {
+                // Restore the original source of the large image
+                const targetId = smallImage.getAttribute('data-target');
+                const largeImage = document.getElementById(targetId);
+                if (largeImage && originalSrc) {
+                    largeImage.src = originalSrc;
+                }
+            });
+        });
+        </script>
+    
+    
+    <script>
+        // JavaScript to handle hover interaction for small images in the 2x3 grid
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scope the selection to the 2x3 grid container
+            const grid2x3Container = document.getElementById('grid2x3');
+            if (grid2x3Container) {
+                grid2x3Container.querySelectorAll('.grid2x3-thumbnail').forEach(thumbnail => {
+                    thumbnail.addEventListener('mouseenter', () => {
+                        const targetId = thumbnail.getAttribute('data-target');
+                        const hoverSrc = thumbnail.getAttribute('data-hover-src');
+                        const largeImage = grid2x3Container.querySelector(`#${targetId}`);
+            
+                        if (largeImage) {
+                            // Save the original src if not already saved
+                            if (!largeImage.hasAttribute('data-original-src')) {
+                                largeImage.setAttribute('data-original-src', largeImage.src);
+                            }
+                            largeImage.src = hoverSrc;
+                        }
+                    });
+            
+                    thumbnail.addEventListener('mouseleave', () => {
+                        const targetId = thumbnail.getAttribute('data-target');
+                        const largeImage = grid2x3Container.querySelector(`#${targetId}`);
+            
+                        if (largeImage && largeImage.hasAttribute('data-original-src')) {
+                            largeImage.src = largeImage.getAttribute('data-original-src');
+                            largeImage.removeAttribute('data-original-src'); // Clean up
+                        }
+                    });
+                });
+            }
+        });
+        </script>
+
+<script>
+    // JavaScript to handle hover interaction for small images in the 1x3 grid ( for scene relighting)
+    document.addEventListener('DOMContentLoaded', () => {
+        // Scope the selection to the 1x3 grid container
+        const grid2x3Container = document.getElementById('grid1x3');
+        if (grid2x3Container) {
+            grid2x3Container.querySelectorAll('.grid1x3-thumbnail').forEach(thumbnail => {
+                thumbnail.addEventListener('mouseenter', () => {
+                    const targetId = thumbnail.getAttribute('data-target');
+                    const hoverSrc = thumbnail.getAttribute('data-hover-src');
+                    const largeImage = grid2x3Container.querySelector(`#${targetId}`);
+        
+                    if (largeImage) {
+                        // Save the original src if not already saved
+                        if (!largeImage.hasAttribute('data-original-src')) {
+                            largeImage.setAttribute('data-original-src', largeImage.src);
+                        }
+                        largeImage.src = hoverSrc;
+                    }
+                });
+        
+                thumbnail.addEventListener('mouseleave', () => {
+                    const targetId = thumbnail.getAttribute('data-target');
+                    const largeImage = grid2x3Container.querySelector(`#${targetId}`);
+        
+                    if (largeImage && largeImage.hasAttribute('data-original-src')) {
+                        largeImage.src = largeImage.getAttribute('data-original-src');
+                        largeImage.removeAttribute('data-original-src'); // Clean up
+                    }
+                });
+            });
+        }
+    });
+    </script>
+
+    <script>
+        // JavaScript to handle hover interaction for large images
+        document.querySelectorAll('.hover-image').forEach(image => {
+            let originalSrc; // Variable to store the original src
+
+            image.addEventListener('mouseenter', () => {
+                originalSrc = image.src; // Save the original src
+                const hoverSrc = image.getAttribute('data-hover-src');
+                if (hoverSrc) {
+                    image.src = hoverSrc; // Change to hover src
+                }
+            });
+
+            image.addEventListener('mouseleave', () => {
+                if (originalSrc) {
+                    image.src = originalSrc; // Restore the original src
+                }
+            });
+        });
+    </script>
+
+    <!-- FOr Adding Layeredit results -->
+
+
+    
+    <script>
+        // Mobile video compatibility fix for WeChat and other strict browsers
+        function initializeVideoCompatibility() {
+            const videos = document.querySelectorAll('video');
+            videos.forEach(video => {
+                // Force video properties for mobile compatibility
+                video.setAttribute('playsinline', '');
+                video.setAttribute('webkit-playsinline', '');
+                video.setAttribute('x-webkit-airplay', 'allow');
+                video.setAttribute('x5-video-player-type', 'h5');
+                video.setAttribute('x5-video-player-fullscreen', 'false');
+                video.setAttribute('x5-video-orientation', 'portraint');
+                // Multiple autoplay attempts for different browsers
+                const attemptPlay = () => {
+                    if (video.paused) {
+                        const playPromise = video.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(error => {
+                                console.log('Autoplay prevented, trying again...', error);
+                                // Try again after a short delay
+                                setTimeout(() => {
+                                    if (video.paused) {
+                                        video.play().catch(() => {
+                                            // Final fallback: show controls for manual play
+                                            video.controls = true;
+                                        });
+                                    }
+                                }, 500);
+                            });
+                        }
+                    }
+                };
+                // Multiple event listeners for different loading states
+                video.addEventListener('loadedmetadata', attemptPlay);
+                video.addEventListener('canplay', attemptPlay);
+                video.addEventListener('canplaythrough', attemptPlay);
+                // Force load and play on touch/click (for strict mobile browsers)
+                const forcePlay = () => {
+                    video.load();
+                    attemptPlay();
+                    document.removeEventListener('touchstart', forcePlay);
+                    document.removeEventListener('click', forcePlay);
+                };
+                document.addEventListener('touchstart', forcePlay, { once: true });
+                document.addEventListener('click', forcePlay, { once: true });
+                // Intersection Observer for lazy loading/playing
+                if ('IntersectionObserver' in window) {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.load();
+                                attemptPlay();
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.1 });
+                    observer.observe(video);
+                }
+            });
+        }
+        // Initialize video compatibility on page load
+        document.addEventListener('DOMContentLoaded', initializeVideoCompatibility);
+        window.addEventListener('load', initializeVideoCompatibility);
+        // Smart navigation positioning
+        function initializeNavigation() {
+            const nav = document.querySelector('d-article d-contents');
+            if (!nav) return;
+            let isInitialized = false;
+            function updateNavPosition() {
+                const headerWrapper = document.querySelector('.header-wrapper');
+                const byline = document.querySelector('.byline');
+                const appendix = document.querySelector('d-appendix');
+                if (headerWrapper && byline) {
+                    // Calculate the total header height
+                    const headerRect = headerWrapper.getBoundingClientRect();
+                    const bylineRect = byline.getBoundingClientRect();
+                    const headerEnd = bylineRect.bottom;
+                    // Get current scroll position
+                    const scrollY = window.scrollY;
+                    const viewportHeight = window.innerHeight;
+                    // Calculate where the header ends relative to the document
+                    const headerEndFromTop = headerEnd + scrollY;
+                    // Check if appendix exists and calculate its position
+                    let targetOffset = 20; // Default top position
+                    if (scrollY < headerEndFromTop - 20) {
+                        // We're still in the header area, push nav down
+                        targetOffset = headerEndFromTop - scrollY + 20;
+                    }
+                    // Check for appendix overlap and adjust if necessary
+                    if (appendix) {
+                        const appendixRect = appendix.getBoundingClientRect();
+                        const navHeight = nav.offsetHeight || 300; // fallback height
+                        const appendixTop = appendixRect.top;
+                        // If appendix is visible in viewport and would overlap with nav
+                        if (appendixTop > 0 && appendixTop < navHeight + 60) { // 60px buffer
+                            // Move nav up so it doesn't overlap with appendix
+                            const requiredOffset = appendixTop - navHeight - 20;
+                            targetOffset = Math.max(requiredOffset, -nav.offsetHeight + 40); // Don't move completely off-screen
+                        }
+                        // Additional check: if we're very close to bottom of page, hide nav completely
+                        const documentHeight = document.documentElement.scrollHeight;
+                        const scrollBottom = scrollY + viewportHeight;
+                        const distanceFromBottom = documentHeight - scrollBottom;
+                        if (distanceFromBottom < navHeight + 100) { // Within 100px of bottom
+                            targetOffset = -navHeight - 20; // Move nav off-screen
+                        }
+                    }
+                    // Apply the calculated offset
+                    nav.style.transform = `translateY(${targetOffset}px)`;
+                    // Show the navigation once it's positioned correctly
+                    if (!isInitialized) {
+                        nav.style.opacity = '1';
+                        nav.style.visibility = 'visible';
+                        isInitialized = true;
+                    }
+                }
+            }
+            // Immediate positioning attempt
+            updateNavPosition();
+            // Update on scroll
+            window.addEventListener('scroll', updateNavPosition);
+            // Update on resize
+            window.addEventListener('resize', updateNavPosition);
+        }
+        // Try to initialize as early as possible
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeNavigation);
+        } else {
+            // DOM is already loaded
+            initializeNavigation();
+        }
+        // Additional attempts to ensure it works
+        setTimeout(initializeNavigation, 10);
+        setTimeout(initializeNavigation, 100);
+    </script>
+</html>
