@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>BlenderFusion: 3D-Grounded Visual Editing and Generative Compositing</title>
+    <title>Zero-Shot Depth-Aware Image Editing with Diffusion Models</title>
     <link rel="icon" type="image/x-icon" href="static/img/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:title" content="BlenderFusion: 3D-Grounded Visual Editing and Generative Compositing" />
+    <meta property="og:title" content="Zero-Shot Depth-Aware Image Editing with Diffusion Models" />
     <meta property="og:description" content="A 3D-grounded visual editing framework providing precise control and composition of various visual elements, including objects, camera, and background." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://jcchen.me/blenderfusion_page_dev/" />
     <meta property="og:image" content="blenderfusion_page_dev/static/img/preview.png" />
     <meta property="og:image:type" content="image/png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="BlenderFusion: 3D-Grounded Visual Editing and Generative Compositing" />
+    <meta name="twitter:title" content="Zero-Shot Depth-Aware Image Editing with Diffusion Models" />
     <meta name="twitter:description" content="A 3D-grounded visual editing framework providing precise control and composition of various visual elements, including objects, camera, and background." />
     <meta name="twitter:url" content="https://jcchen.me/blenderfusion_page_dev/" />
     <meta name="twitter:image" content="blenderfusion_page_dev/static/img/preview.png" />
@@ -41,59 +41,78 @@
     <script defer src="static/js/zoom.js"></script>
     <!-- Removed bulma-carousel and bulma-slider scripts (not used) -->
     <script src="static/js/index.js"></script>
+
+    <script type="module" src="https://unpkg.com/img-comparison-slider@7.0.0/dist/index.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" media="all" href="clarity/clarity.css" />
 </head>
 <body>
     <div class="header-wrapper">
         <div class="header-container" id="header-container">
             <div class="header-content">
-                <h1 style="margin-top: 0px">BlenderFusion:</h1>
-                <h2>3D-Grounded Visual Editing and Generative Compositing </h2>
-                <p style="color: #FFF7D4">
+                <h1 style="margin-top: 0px">Zero-Shot Depth-Aware Image Editing with Diffusion Models</h1>
+                <!-- <h2>3D-Grounded Visual Editing and Generative Compositing </h2> -->
+                <!-- <p style="color: #FFF7D4">
                     A <strong style="color: #ffe099">3D-grounded
                     visual compositing framework</strong>, providing precise control and composition of various visual elements, including objects, camera, and background. 
                     BlenderFusion employs a <strong style="color: #ffe099">layering-editing-compositing</strong> process:
+                </p> -->
+
+                <p style="color: #FFF7D4">
+                    Our method enables <strong style="color: #ffe099">precise depth control</strong>  over object placement and scene composition in 3D space. 
+                    It introduces a <strong style="color: #ffe099">zero-shot compositing strategy</strong> that fuses these layers using internal features of pretrained diffusion models, producing realistic results without the need for post-processing. 
+                    We demonstrate high-quality edits in <em>scene compositing</em> and <em>object insertion</em>, achieving accurate depth ordering and visual consistency.
                 </p>
                 <div class="icon-container">
                     <div class="icon-item">
-                        <img src="static/img/icons/geometry.svg">
-                        <div><strong>Object-centric Layering</strong>: Segment and lift object from source images into editable 3D elememnts, leveraging visual foundation models.</div>
-                    </div>
-                    <div class="icon-item">
-                        <img src="static/img/icons/icons8-blender_2.svg">
-                        <div><strong>Blender-grounded Editing</strong>: Edit and manipulatethe various visual elements in Blender, render the initial and target scenes to provide strong 3D grounding.</div>
+                        <img src="static/img/icons/buffer.svg">
+                        <div>
+                            <strong>Depth-Guided Layer Decomposition</strong>: A novel layering method to decompose a given image into editable layers using its depth map and a user-specified depth value.
+                        </div>
                     </div>
                     <div class="icon-item">
                         <img src="static/img/icons/compositing.svg">
-                        <div><strong>Generative Compositing</strong>: Adapt a diffusion model into a generative compositor, compose everything into the target image.</div>
+                        <div>
+                            <strong>Feature-Guided Layer Compositing</strong>: A zero-shot method that leverages pretrained diffusion models to progressively blend multiple layers with feature guidance, ensuring photorealistic lighting and color harmonization.
+                        </div>
+                    </div>
+                    <div class="icon-item">
+                        <img src="static/img/icons/geometry.svg">
+                        <div>
+                            <strong>Depth-Aware Editing Applications</strong>: Demonstrates the effectiveness of depth-based layering in novel editing tasks such as object insertion and scene compositing at a user-specified depth.
+                        </div>
                     </div>
                 </div>
                 <br>
                 <div class="button-container">
-                    <!-- replace arxiv -->
-                    <a href="https://arxiv.org/abs/2506.17450" class="button paper-link" target="_blank">
-                        <span class="icon is-small">
-                            <i class="ai ai-arxiv"></i>
-                        </span>
-                        arXiv
-                    </a>
                     <!-- replace pdf -->
-                    <a href="static/paper.pdf" class="button paper-link" target="_blank">
+                    <a href="pdf/main_paper.pdf" class="button paper-link" target="_blank">
                         <span class="icon is-small">
                             <i class="fas fa-file-pdf"></i>
                         </span>
                         <span>PDF</span>
                     </a>
-                    <!-- demos button -->
-                    <a href="#results" class="button demo-link">
+
+                    <!-- replace arxiv -->
+                    <!-- <a href="https://arxiv.org/abs/2506.17450" class="button paper-link" target="_blank">
                         <span class="icon is-small">
-                            <i class="fas fa-play"></i>
+                            <i class="ai ai-arxiv"></i>
                         </span>
-                        <span>Demos</span>
+                        arXiv
+                    </a> -->
+
+                    <a href="https://github.com/your-username/your-repo" class="button paper-link" target="_blank">
+                        <span class="icon is-small">
+                            <i class="fab fa-github"></i> <!-- Font Awesome GitHub icon -->
+                        </span>
+                        Code
                     </a>
+
                 </div>
             </div>
             <div class="header-image">
-                <img src="static/img/page_teaser.jpg" alt="Teaser Image" class="teaser-image">
+                <img src="static/img/mdf.png" alt="Teaser Image" class="teaser-image">
             </div>
         </div>
     </div>
@@ -101,40 +120,35 @@
     <d-contents>
         <nav>
             <h4>Contents</h4>
+            <div class="nav-section"><a href="#abstract">Abstract</a></div>
             <div class="nav-section"><a href="#motivation">Motivation</a></div>
             <div class="nav-section"><a href="#method-overview">Method Overview</a></div>
             <ul class="nav-subsections">
-                <li><a href="#layering">Step 1: Object-centric Layering</a></li>
-                <li><a href="#editing">Step 2: Blender-grounded Editing</a></li>
-                <li><a href="#compositing">Step 3: Generative Compositing</a></li>
+                <li><a href="#layering">Step 1: Depth-Guided Layer Decomposition</a></li>
+                <li><a href="#editing">Step 2: Feature-Guided Layer Composition</a></li>
             </ul>
             <div class="nav-section"><a href="#results">Results Demos</a></div>
             <ul class="nav-subsections">
-                <li><a href="#object-control">Disentangled Object Control</a></li>
-                <li><a href="#camera-control">Disentangled Camera Control</a></li>
-                <li><a href="#finegrained-editing">Fine-grained Editing and Compositing</a></li>
-                <li><a href="#generalization">Out-of-Distribution Generalization</a></li>
+                <li><a href="#scene-composition">Scene Composition</a></li>
+                <li><a href="#scene-relighting">Scene Relighting</a></li>
+                <li><a href="#object-insertion">Depth aware object Insertion</a></li>
+                <li><a href="#object-movement">Moving Object in a scene</a></li>
             </ul>
         </nav>
     </d-contents>
     <div class="byline">
         <div class="byline-container">
             <p class="authors">
-                <a href="https://jcchen.me/" class="author-link" target="_blank">Jiacheng Chen<sup>*,1,2,†</sup></a> &emsp;
-                <a href="https://scholar.google.com/citations?user=wAeqXKUAAAAJ&hl=en" class="author-link" target="_blank">Ramin Mehran<sup>1</sup></a> &emsp;
-                <a href="https://scholar.google.com/citations?hl=en&user=vO0VSSYAAAAJ" class="author-link" target="_blank">Xuhui Jia<sup>1</sup></a> &emsp;
-                <a href="https://www.sainingxie.com/" class="author-link" target="_blank">Saining Xie<sup>1,3</sup></a> &emsp;
-                <a href="https://sites.google.com/view/sanghyunwoo/" class="author-link" target="_blank">Sanghyun Woo<sup>1,†</sup></a>
+                <a href="https://rishubhpar.github.io/" class="author-link" target="_blank">Rishubh Parihar<sup>1,†</sup></a> &emsp;
+                <a href="https://scholar.google.com/citations?user=Hup_9BkAAAAJ&hl=en" class="author-link" target="_blank">Sachidanand VS<sup>1</sup></a> &emsp;
+                <a href="https://cds.iisc.ac.in/faculty/venky/" class="author-link" target="_blank">Venkatesh Babu R<sup>1</sup></a> &emsp;
             </p>
             <div class="affiliations">
                 <p>
-                    <span class="affiliation-link"><sup>1</sup>Google DeepMind</span> &emsp;
-                    <span class="affiliation-link"><sup>2</sup>Simon Fraser University</span> &emsp;
-                    <span class="affiliation-link"><sup>3</sup>New York University</span>
+                    <span class="affiliation-link"><sup>1</sup>Indian Institute of Science</span>
                 </p>
             </div>
             <p class="author-notes" style="text-align: center;">
-                <span class="author-note"><sup>*</sup>Work done during internship at Google</span> &emsp;
                 <span class="author-note"><sup>†</sup>Corresponding authors</span>
             </p>
         </div>
@@ -153,8 +167,8 @@
                     preload="metadata" 
                     class="demo-video"
                 >
-                    <source src="static/video/demo.mp4" type="video/mp4">
-                    <source src="static/video/demo.webm" type="video/webm">
+                    <source src="static/video/slides.mp4" type="video/mp4">
+                    <!-- <source src="static/video/demo.webm" type="video/webm"> -->
                     Your browser does not support the video tag.
                 </video>
                 <div class="video-caption">
@@ -163,17 +177,52 @@
             </div>
         </div>
     </div>
-    <div id="motivation">
+    
+
+    <h2 id="method-overview" class="text">Abstract </h2>
+    <div id="abstract"></div>
     <p class="text">
-        <strong>Visual compositing</strong>, a key component of visual effects (VFX), refers to the process of assembling multiple visual elements into a single, coherent image. It typically involves the following stages:
+        In this work, we introduce a generalized zero-shot framework for depth-aware image editing. Our approach enables realistic scene editing, 
+        such as object insertion at specific depths and blending a scene's foreground with another's background while preserving the identity of the input scene. 
+        The key idea is to integrate Depth-Guided Layer Decomposition (DeGLaD) in the feature space of diffusion models. Specifically, we propose Feature-Guided Layer Composition (FeatGLaC), 
+        a layered guidance mechanism on the feature space of denoising UNet model which allows for image editing by progressively steering the 
+        latents toward the desired edit while maintaining the orignal scene appearance throughout the denoising process. We validate our approach on 
+        two depth-aware editing tasks: a) object insertion that preserves object and scene identity with seamless blending, and b) depth-based compositing of two real scenes 
+        with accurate lighting.
     </p>
     <ul class="text" style="margin-top: 0em;">
-        <li><strong>Layering</strong>: Segment objects from the background, estimate camera parameters, and reconstruct a 3D scene layout.</li>
-        <li><strong>Editing</strong>: Modify object properties, reposition elements, adjust camera views, and update scene context.</li>
-        <li><strong>Compositing</strong>: Integrate all modified elements seamlessly, ensuring consistency in lighting, perspective, and appearance to produce the final image.</li>
+        <li><strong>Depth aware object Insertion</strong>: object insertion that preserves object and scene identity with seamless blending.</li>
+        <li><strong>Scene Composition</strong>: Depth-based compositing of two real scenes with accurate lighting.</li>
     </ul>
     </div>
+
+
+    <h2 id="method-overview" class="text">Motivation </h2>
+    <div id="motivation">
     <p class="text">
+        Depth Guided Layer Decomposition (DeGLaD) is an efficient 2.5D scene representation that allows for depth-aware editing. 
+        However, when directly applied in the pixel space, it struggles to model the accurate foreground and 
+        background scene interactions, particularly in terms of scene lighting, color harmonization, 
+        and shadow generation (as shown below). To address this, our approach leverages the rich image generation
+        priors from pretrained image diffusion models via FeatGLaC. This enables depth-consistent, realistic
+        scene compositions while preserving details in foreground and background regions. 
+    </p>
+    </div>
+
+    
+    <script>
+    window.MathJax = {
+        tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+    };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <!-- <p class="text">
         Despite tremendous progress in image generation and editing, precise visual compositing remains challenging for state-of-the-art models with text interface. Look at the following example with GPT-4o image generation, results are obtained on June 9th, 2025 through the ChatGPT App<d-cite key="openai2024gpt4o-image"></d-cite>.
     </p>
     <div class="responsive-image-container">
@@ -194,775 +243,387 @@
         This approach provides flexible and fine-grained control over objects, camera, and background, while harnessing the powerful synthesis capabilities of modern generative models.
         In the following section, we detail our three steps that mirrors the <strong>layering-editing-compositing</strong> process of traditional visual compositing.
     </p>
-    </div>
+    </div> -->
     <h2 id="method-overview" class="text">Method Overview </h2>
-    <h3 id="layering" class="text first-subsection"><img src="static/img/icons/geometry.svg" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">Step 1: Object-centric Layering</h3>
+    <h3 id="layering" class="text first-subsection"><img src="static/img/icons/buffer.svg" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">Step 1: Depth-Guided Layer Decomposition</h3>
     <p class="text">
-       The first step, object-centric layering, aims to extract objects of interest from one or more source images and lift them into editable 3D elements.
-       We leverage several visual foundation models in this process:
+       Scene depth serves as an effective representation to model the underlying scene geometry and enables enhanced control over 3D scene structure, Given an input image,
+       its depth map, and a user-specified depth d, DeGLaD decomposes the image into foreground (depth < d) and background (depth > d) layers
+       based on the scene depth. This decomposition enables precise depth-aware editing via independent editing of each layer,
     </p>
-         <ul class="text" style="margin-top: 0em;">
-         <li>A <strong>segmentation model (SAM2) <d-cite key="ravi2024sam2"></d-cite></strong> to produce accurate object masks, using object box as the prompt;</li>
-         <li>A <strong>monocular depth estimation model (Depth Pro) <d-cite key="bochkovskii2024depth-pro"></d-cite></strong> to estimate the depth, which allows us to back-project the object using the mask and depth information to obtain a 2.5D surface mesh, serving as the 3D proxy of the object. The processing is fast and used to prepare the training data in large scale;</li>
-         <li>(Optional) An <strong>image-to-3D model</strong> (Rodin <d-cite key="rodin"></d-cite>, Hunyuan3D <d-cite key="zhao2025hunyuan3dv2"></d-cite>) to generate complete 3D meshes and align their poses to the 2.5D mesh, enabling more flexible editing at test time.</li>
-     </ul>
+     <p>
+        \[
+        \mathbf{M_{\text{fg}}(i,j)} = \mathbb{I} \left( D(i,j) &lt; d \right), \quad
+        \mathbf{M_{\text{bg}}(i,j)} = \mathbb{I} \left( D(i,j) \geq d \right)
+        \]
+    </p>
     <div class="responsive-image-container">
         <figure style="margin: 0; background: transparent; border: none; padding: 0;">
-            <img src="static/img/step1.jpg" alt="Step 1" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+            <img src="static/img/website1.png" alt="Step 1" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
         </figure>
         <figcaption style="text-align: center; margin: 10px 0 0 0; padding: 0; font-style: italic; color: #666; font-size: 0.9em; background: none; border: none; box-shadow: none;">
-            <strong>Step 1: Object-centric Layering:</strong> Obtain editable objects from source images or other existing 3D assets.
+            <strong>Step 1: Depth-Guided Layer Decomposition:</strong> Obtain foreground and background layer based on user given depth.
         </figcaption>
     </div>
-    <h3 id="editing" class="text"><img src="static/img/icons/icons8-blender_2.svg" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">Step 2: Blender-grounded Editing</h3>
+    <h3 id="editing" class="text"><img src="static/img/icons/compositing.svg" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">Step 2: Feature guided Layer Composition</h3>
     <p class="text">
-        The editable objects from the previous step are then imported into Blender, where diverse programmic and manual editings can be applied. We cover both object and camera controls. The object control includes basic object rigid transformations and more advaned controls (color, texture, part-level editing, novel objects, etc.). 
-        The camera control includes camera viewpoint and background change, where the background replacement is directly handled in the generative compositing step.
+        We introduce Feature-Guided Layer Composition (FeatGLaC), a layered representation embedded in the feature space of the 
+            denoising U-Net within diffusion models. These layered feature representation enables precise control over
+            the generated image.  However, directly α compsiting the layers during generation can push the latents outside the original 
+            distribution, resulting in unnatural editing results. To address this, we propose a softer way to edit the diffusion 
+            latents with FeatGLaC which is a guidance mechanism, where the diffusion latents are progressively steered toward the desired edit at each 
+            denoising step. 
     </p>
     <div class="responsive-image-container">
         <figure style="margin: 0; background: transparent; border: none; padding: 0;">
-            <video autoplay muted loop playsinline webkit-playsinline preload="auto" poster="static/img/step2_poster.jpg" width="100%" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);" id="step2-video" oncanplay="this.play()" onloadstart="this.play()">
-                <source src="static/img/step2.mp4" type="video/mp4">
-                <source src="static/img/step2.webm" type="video/webm">
-                Your browser does not support the video tag.
-            </video>
+            <img src="static/img/website2.png" alt="Step 2" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
         </figure>
-        <figcaption style="text-align: left; margin: 10px 0 0 0; padding: 0; font-style: italic; color: #666; font-size: 0.9em; background: none; border: none; box-shadow: none;">
-            <strong>Step 2: Blender-grounded Editing:</strong> Versatile object and camera controls through a graphics engine (Blender). The accurate controls are difficult to achieve with implicit control protocols (text or 3D bounding boxes).
-            The render results provide reliable 3D grounding for the generative compositing step.
+        <figcaption style="text-align: center; margin: 10px 0 0 0; padding: 0; font-style: italic; color: #666; font-size: 0.9em; background: none; border: none; box-shadow: none;">
+            <strong>Step 2: Feature guided Layer Composition:</strong> Guide the foreground layer based of based on the task specific mask obtained from DeGLaD.
         </figcaption>
     </div>
-    <p class="text">
-        When rendering the original and edited scenes to obtain 3D grounding for the generative compositing step, we disable all shading effects and use only the emission shader, allowing the diffusion-based compositor to handle lighting and shading. Note that the 2.5D mesh is inherently rough and can become incomplete when the viewpoint changes or objects are transformed, requiring the generative compositor to perform shape understanding and completion. 
-        Nevertheless, our generative compositor benefits from much more reliable 3D grounding provided by the graphics software, in contrast to text-to-image models that must handle complex editing and compositing tasks based on vague or ambiguous text descriptions and other implicit encodings.
+    
+    <p>
+        <span style="color: blue; font-weight: bold; font-style: italic;">Intuition:</span>
+        <span style="font-style: italic;">
+            We force the foreground layer ($fg$) of $\Psi^{c}_{i,t}$ to be close to the foreground layer of $\Psi_{i,t}^a$
+            and the background layer ($bg$) of $\Psi^{c}_{i,t}$ to be close to the background layer of $\Psi_{i,t}^b$
+            as shown in above Fig. This is implemented by defining $\mathcal{G}$ :
+        </span>
+        </p>
+        \[
+            \sum_i \left\| \mathbf{M^a_{fg}} \cdot (\Psi^{a}_{i,t} - \Psi^{c}_{i,t}) \right\|^2 +  
+            \left\| \mathbf{M^b_{bg}} \cdot (\Psi^{b}_{i,t} - \Psi^{c}_{i,t}) \right\|^2
+        \]
     </p>
-    <h3 id="compositing" class="text"><img src="static/img/icons/compositing.svg" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">Step 3: Generative Compositing</h3>
+    <!--  -->
+    <h2 id="results" class="text">Results</h2>
     <p class="text">
-        In the generative compositing step, we employ a diffusion model as a generative compositor to blend and synthesize the final photorealistic image. The compositor is adapted from a pre-trained Stable Diffusion v2.1 model <d-cite key="rombach2022latent-dm"></d-cite> <d-cite key="stabilityai2022sd21"></d-cite> with several key architectural modifications:
-    </p>
-         <ul class="text" style="margin-top: 0em;">
-         <li>The <strong>dual-stream architecture</strong> processes information from both the original scene (before editing) and the target scene (after editing) in parallel;</li>
-         <li>The <strong>source stream</strong> takes the background image (with original foreground masked out if necessary for background replacement) and the initial Blender render from the imported 3D objects. The <strong>target stream</strong> takes the noisy target image, the target Blender render (after object and camera manipulations), and the relative camera pose (in Plücker encoding) as geometric control signals;</li>
-         <li>The <strong>cross-view attention mechanism</strong> extends the original self-attention layers of the denoising network to operate on both streams simultaneously, allowing proper blending of source and target information;</li>
-         <li>The <strong>3D object bounding boxes</strong> provide additional spatial constraints, encoded and injected through the text embedding interface.</li>
-     </ul>
-    <div class="responsive-image-container">
-        <figure style="margin: 0; background: transparent; border: none; padding: 0;">
-            <video autoplay muted loop playsinline webkit-playsinline preload="auto" poster="static/img/step3_poster.jpg" width="100%" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);" id="step3-video" oncanplay="this.play()" onloadstart="this.play()">
-                <source src="static/img/step3.mp4" type="video/mp4">
-                <source src="static/img/step3.webm" type="video/webm">
-                Your browser does not support the video tag.
-            </video>
-        </figure>
-        <figcaption style="text-align: left; margin: 10px 0 0 0; padding: 0; font-style: italic; color: #666; font-size: 0.9em; background: none; border: none; box-shadow: none;">
-            <strong>Step 3: Generative Compositing:</strong> Our generative compositor is adapted from Stable Diffusion v2.1. The network processes the source stream (original scene) and the target stream (target scene) in parallel and uses cross-view self attention to blend the information. Highly fine-grained editing and compositing can be achieved.
-        </figcaption>
-    </div>
-    <p class="text">
-        The compositor is trained on pairs of video frames with object and camera pose information. We design two tailored training strategies for flexible and disentangled control. <em>Source masking</em> randomly drops the source stream information during training, enabling us to effectively mask out information from the original scene when performing aggressive edits (such as background replacement or object removal). 
-        <em>Simulated object jittering</em> perturbs the objects while keeping the camera fixed, greatly facilitating disentangled object control. Please see the next section below for extensive qualitative results.
-     </p>
-    <h2 id="results" class="text">Results Demos</h2>
-    <p class="text">
-        We demonstrate BlenderFusion across four key task settings and compare against Neural Assets <d-cite key="wu2024neural-assets"></d-cite>, 
-        a state-of-the-art method for 3D-aware multi-object control that disentangles foreground objects and background.
+        We perform 4 depth aware editing using our method, which are all based on the layering-editing-compositing process described above.
     </p>
     <ul class="text" style="margin-top: 0em;">
-        <li><strong>Disentangled object control:</strong> Transform objects while keeping the camera fixed</li>
-        <li><strong>Disentangled camera control:</strong> Manipulate camera viewpoint with mostly static objects</li>
-        <li><strong>Fine-grained compositing:</strong> Complex scene editing and recomposition</li>
-        <li><strong>Out-of-distribution generalization:</strong> Editing unseen domains and progressive object-level tasks</li>
+        <li><strong>Depth-Aware Scene Composition</strong> </li>
+        <li><strong>Scene Relighting</strong></li>
+        <li><strong>Depth-Aware Object Insertion </strong></li>
+        <li><strong>Placing Object at different locations</strong></li>
     </ul>
-    <div id='results' class="vision-block">
-        <div id="sec:benchmarking" class="sub-section">
-            <h3 id="object-control" class="text first-subsection">Disentangled Object Control</h3>
-            <p class="text">
-                We demonstrate object translation, rotation, and scaling on Objectron and Waymo Open Dataset. 
-                Results show: <strong>source image</strong> with colored 3D boxes indicating editing intent, <strong>Neural Assets</strong> baseline, 
-                <strong>Blender render</strong> using either 2.5D surface reconstruction or complete 3D meshes from image-to-3D models, 
-                and <strong>BlenderFusion</strong> final results from our generative compositor.
-            </p>
-            <div class="interaction-instructions" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px 16px; margin: 16px 0; font-size: 0.9em; color: #475569;">
-                <strong>🎮 Interactive Controls:</strong> Click or drag the <strong>sliders</strong> to transform objects • Click <span style="background: #6b7280; color: white; padding: 2px 6px; border-radius: 4px; font-weight: 600;">Reset</span> to return to default positions • Click <span style="background: #4f7cff; color: white; padding: 2px 6px; border-radius: 4px; font-weight: 600;">Expand</span> to see more examples
-            </div>
-            <p class="text" style="margin-top: 20px; padding: 16px; background-color: #f8fafc; border-left: 4px solid #3b82f6; border-radius: 0 8px 8px 0; font-style: italic;">
-                <strong>Observation:</strong> Our generative compositor is able to correct broken or incomplete shapes from the 2.5D Blender renderings, completing object geometry and synthesizing realistic lighting and shading effects. This demonstrates the power of combining precise 3D geometric control with advanced generative modeling.
-            </p>
-        <!-- Translation Examples -->
-        <div class="example-section">
-            <h4 class="example-title first-example">(1) Object Translation</h4>
-            <div class="slider-container">
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-translation_1-source" src="results/disentangled_object/bottle_batch-45_10_source_7_translation_z/source_with_bboxes/frame_005.png">
-                    <figcaption>Source image</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-translation_1-na" src="results/disentangled_object/bottle_batch-45_10_source_7_translation_z/na_results/frame_005.png">
-                    <figcaption>Neural Assets</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-translation_1-blender" src="results/disentangled_object/bottle_batch-45_10_source_7_translation_z/blender_render/frames/frame_control_5.png">
-                    <figcaption>Blender render (2.5 mesh)</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-translation_1-blenderfusion" src="results/disentangled_object/bottle_batch-45_10_source_7_translation_z/blenderfusion_results/frame_005.png">
-                    <figcaption>BlenderFusion</figcaption>
-                </figure>
-            </div>
-            <div class="slider-controls">
-                <img src="static/icons/move.svg" alt="Move Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                <div class="slider-input-container">
-                    <input type="range" class="frame-slider" id="slider-translation_1" min="0" max="11" value="5" oninput="changeFrameBySlider('translation_1', this.value)">
-                </div>
-                <button class="reset-button" onclick="resetToDefault('translation_1')">Reset</button>
-            </div>
-            <div class="slider-container">
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_translation_1-source" src="results/disentangled_object/wod/sample_000068_source_1_translation_z/source_with_bboxes/frame_005.png">
-                    <figcaption>Source image</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_translation_1-na" src="results/disentangled_object/wod/sample_000068_source_1_translation_z/na_results/frame_005.png">
-                    <figcaption>Neural Assets</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_translation_1-blender" src="results/disentangled_object/wod/sample_000068_source_1_translation_z/blender_render/frames/frame_control_5.png">
-                    <figcaption>Blender render (2.5 mesh)</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_translation_1-blenderfusion" src="results/disentangled_object/wod/sample_000068_source_1_translation_z/blenderfusion_results/frame_005.png">
-                    <figcaption>BlenderFusion</figcaption>
-                </figure>
-            </div>
-            <div class="slider-controls">
-                <img src="static/icons/move.svg" alt="Move Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                <div class="slider-input-container">
-                    <input type="range" class="frame-slider" id="slider-waymo_translation_1" min="0" max="14" value="5" oninput="changeFrameBySlider('waymo_translation_1', this.value)">
-                </div>
-                <button class="reset-button" onclick="resetToDefault('waymo_translation_1')">Reset</button>
-            </div>
-            <!-- Show More Button for Translation Examples -->
-            <div class="show-more-container">
-                <button class="show-more-btn" onclick="toggleExamples('translation')">
-                    Expand more examples <span class="icon">▼</span>
-                </button>
-            </div>
-            <!-- Collapsible Examples Container -->
-            <div class="collapsible-examples" id="translation-examples">
-                <div class="slider-container">
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-translation_2-source" src="results/disentangled_object/shoe_batch-1_34_source_43_translation_z/source_with_bboxes/frame_000.png">
-                        <figcaption>Source image</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-translation_2-na" src="results/disentangled_object/shoe_batch-1_34_source_43_translation_z/na_results/frame_000.png">
-                        <figcaption>Neural Assets</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-translation_2-blender" src="results/disentangled_object/shoe_batch-1_34_source_43_translation_z/blender_render/frames/frame_control_0.png">
-                        <figcaption>Blender render (2.5 mesh)</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-translation_2-blenderfusion" src="results/disentangled_object/shoe_batch-1_34_source_43_translation_z/blenderfusion_results/frame_000.png">
-                        <figcaption>BlenderFusion</figcaption>
-                    </figure>
-                </div>
-                <div class="slider-controls">
-                    <img src="static/icons/move.svg" alt="Move Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                    <div class="slider-input-container">
-                        <input type="range" class="frame-slider" id="slider-translation_2" min="0" max="11" value="0" oninput="changeFrameBySlider('translation_2', this.value)">
-                    </div>
-                    <button class="reset-button" onclick="resetToDefault('translation_2')">Reset</button>
-                </div>
-                <div class="slider-container">
-                    <figure class="slider-figure aspect-1-5-1">
-                        <img id="image-waymo_translation_2-source" src="results/disentangled_object/wod/sample_000079_source_11_translation_x/source_with_bboxes/frame_000.png">
-                        <figcaption>Source image</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-5-1">
-                        <img id="image-waymo_translation_2-na" src="results/disentangled_object/wod/sample_000079_source_11_translation_x/na_results/frame_000.png">
-                        <figcaption>Neural Assets</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-5-1">
-                        <img id="image-waymo_translation_2-blender" src="results/disentangled_object/wod/sample_000079_source_11_translation_x/blender_render/frames/frame_control_0.png">
-                        <figcaption>Blender render (2.5 mesh)</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-5-1">
-                        <img id="image-waymo_translation_2-blenderfusion" src="results/disentangled_object/wod/sample_000079_source_11_translation_x/blenderfusion_results/frame_000.png">
-                        <figcaption>BlenderFusion</figcaption>
-                    </figure>
-                </div>
-                <div class="slider-controls">
-                    <img src="static/icons/move.svg" alt="Move Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                    <div class="slider-input-container">
-                        <input type="range" class="frame-slider" id="slider-waymo_translation_2" min="0" max="10" value="0" oninput="changeFrameBySlider('waymo_translation_2', this.value)">
-                    </div>
-                    <button class="reset-button" onclick="resetToDefault('waymo_translation_2')">Reset</button>
-                </div>
-            </div>
-        </div>
-        <!-- Rotation examples -->
-        <div class="example-section">
-            <h4 class="example-title">(2) Object Rotation</h4>
-            <div class="slider-container">
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-rotation_1-source" src="results/disentangled_object/cereal_box_batch-6_13_source_3_rotation_x/source_with_bboxes/frame_006.png">
-                    <figcaption>Source image</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-rotation_1-na" src="results/disentangled_object/cereal_box_batch-6_13_source_3_rotation_x/na_results/frame_006.png">
-                    <figcaption>Neural Assets</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-rotation_1-blender" src="results/disentangled_object/cereal_box_batch-6_13_source_3_rotation_x/blender_render/frames/frame_control_6.png">
-                    <figcaption>Blender render (2.5 mesh)</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-rotation_1-blenderfusion" src="results/disentangled_object/cereal_box_batch-6_13_source_3_rotation_x/blenderfusion_results/frame_006.png">
-                    <figcaption>BlenderFusion</figcaption>
-                </figure>
-            </div>
-            <div class="slider-controls">
-                <img src="static/icons/3d_rotate.svg" alt="Rotation Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                <div class="slider-input-container">
-                    <input type="range" class="frame-slider" id="slider-rotation_1" min="0" max="11" value="6" oninput="changeFrameBySlider('rotation_1', this.value)">
-                </div>
-                <button class="reset-button" onclick="resetToDefault('rotation_1')">Reset</button>
-            </div>
-            <div class="slider-container">
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_rotation_2-source" src="results/disentangled_object/wod/sample_000084_source_21_rotation_y/source_with_bboxes/frame_006.png">
-                    <figcaption>Source image</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_rotation_2-na" src="results/disentangled_object/wod/sample_000084_source_21_rotation_y/na_results/frame_006.png">
-                    <figcaption>Neural Assets</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_rotation_2-blender" src="results/disentangled_object/wod/sample_000084_source_21_rotation_y/blender_render/frames/frame_control_6.png">
-                    <figcaption>Blender render (3D-Gen mesh)</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_rotation_2-blenderfusion" src="results/disentangled_object/wod/sample_000084_source_21_rotation_y/blenderfusion_results/frame_006.png">
-                    <figcaption>BlenderFusion</figcaption>
-                </figure>
-            </div>
-            <div class="slider-controls">
-                <img src="static/icons/3d_rotate.svg" alt="Rotation Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                <div class="slider-input-container">
-                    <input type="range" class="frame-slider" id="slider-waymo_rotation_2" min="0" max="11" value="6" oninput="changeFrameBySlider('waymo_rotation_2', this.value)">
-                </div>
-                <button class="reset-button" onclick="resetToDefault('waymo_rotation_2')">Reset</button>
-            </div>
-            <!-- Show More Button for Rotation Examples -->
-            <div class="show-more-container">
-                <button class="show-more-btn" onclick="toggleExamples('rotation')">
-                    Expand more examples <span class="icon">▼</span>
-                </button>
-            </div>
-            <!-- Collapsible Examples Container -->
-            <div class="collapsible-examples" id="rotation-examples">
-                <div class="slider-container">
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-rotation_2-source" src="results/disentangled_object/chair_batch-4_2_source_2_rotation_x/source_with_bboxes/frame_006.png">
-                    <figcaption>Source image</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-rotation_2-na" src="results/disentangled_object/chair_batch-4_2_source_2_rotation_x/na_results/frame_006.png">
-                    <figcaption>Neural Assets</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-rotation_2-blender" src="results/disentangled_object/chair_batch-4_2_source_2_rotation_x/blender_render/frames/frame_control_6.png">
-                    <figcaption>Blender render (3D-Gen mesh)</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-rotation_2-blenderfusion" src="results/disentangled_object/chair_batch-4_2_source_2_rotation_x/blenderfusion_results/frame_006.png">
-                    <figcaption>BlenderFusion</figcaption>
-                </figure>
-            </div>
-            <div class="slider-controls">
-                <img src="static/icons/3d_rotate.svg" alt="Rotation Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                <div class="slider-input-container">
-                    <input type="range" class="frame-slider" id="slider-rotation_2" min="0" max="11" value="6" oninput="changeFrameBySlider('rotation_2', this.value)">
-                </div>
-                <button class="reset-button" onclick="resetToDefault('rotation_2')">Reset</button>
-            </div>
-            <div class="slider-container">
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_rotation_1-source" src="results/disentangled_object/wod/sample_000224_source_5_rotation_y/source_with_bboxes/frame_006.png">
-                    <figcaption>Source image</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_rotation_1-na" src="results/disentangled_object/wod/sample_000224_source_5_rotation_y/na_results/frame_006.png">
-                    <figcaption>Neural Assets</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_rotation_1-blender" src="results/disentangled_object/wod/sample_000224_source_5_rotation_y/blender_render/frames/frame_control_6.png">
-                    <figcaption>Blender render (2.5D mesh)</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_rotation_1-blenderfusion" src="results/disentangled_object/wod/sample_000224_source_5_rotation_y/blenderfusion_results/frame_006.png">
-                    <figcaption>BlenderFusion</figcaption>
-                </figure>
-            </div>
-            <div class="slider-controls">
-                <img src="static/icons/3d_rotate.svg" alt="Rotation Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                <div class="slider-input-container">
-                    <input type="range" class="frame-slider" id="slider-waymo_rotation_1" min="0" max="11" value="6" oninput="changeFrameBySlider('waymo_rotation_1', this.value)">
-                </div>
-                <button class="reset-button" onclick="resetToDefault('waymo_rotation_1')">Reset</button>
-            </div>
-            </div>
-        </div>
-        <!-- Scaling Example -->
-        <div class="example-section">
-            <h4 class="example-title">(3) Object Scaling</h4>
-            <div class="slider-container">
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-scaling_1-source" src="results/disentangled_object/cup_batch-7_4_source_0_scale/source_with_bboxes/frame_005.png">
-                    <figcaption>Source image</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-scaling_1-na" src="results/disentangled_object/cup_batch-7_4_source_0_scale/na_results/frame_005.png">
-                    <figcaption>Neural Assets</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-scaling_1-blender" src="results/disentangled_object/cup_batch-7_4_source_0_scale/blender_render/frames/frame_control_5.png">
-                    <figcaption>Blender render (2.5 mesh)</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-scaling_1-blenderfusion" src="results/disentangled_object/cup_batch-7_4_source_0_scale/blenderfusion_results/frame_005.png">
-                    <figcaption>BlenderFusion</figcaption>
-                </figure>
-            </div>
-            <div class="slider-controls">
-                <img src="static/icons/scale.svg" alt="Scale Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                <div class="slider-input-container">
-                    <input type="range" class="frame-slider" id="slider-scaling_1" min="0" max="8" value="5" oninput="changeFrameBySlider('scaling_1', this.value)">
-                </div>
-                <button class="reset-button" onclick="resetToDefault('scaling_1')">Reset</button>
-            </div>
-            <div class="slider-container">
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_scaling_1-source" src="results/disentangled_object/wod/sample_000099_source_10_scale/source_with_bboxes/frame_006.png">
-                    <figcaption>Source image</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_scaling_1-na" src="results/disentangled_object/wod/sample_000099_source_10_scale/na_results/frame_006.png">
-                    <figcaption>Neural Assets</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_scaling_1-blender" src="results/disentangled_object/wod/sample_000099_source_10_scale/blender_render/frames/frame_control_6.png">
-                    <figcaption>Blender render (2.5 mesh)</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_scaling_1-blenderfusion" src="results/disentangled_object/wod/sample_000099_source_10_scale/blenderfusion_results/frame_006.png">
-                    <figcaption>BlenderFusion</figcaption>
-                </figure>
-            </div>
-            <div class="slider-controls">
-                <img src="static/icons/scale.svg" alt="Scale Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                <div class="slider-input-container">
-                    <input type="range" class="frame-slider" id="slider-waymo_scaling_1" min="0" max="9" value="6" oninput="changeFrameBySlider('waymo_scaling_1', this.value)">
-                </div>
-                <button class="reset-button" onclick="resetToDefault('waymo_scaling_1')">Reset</button>
-            </div>
-            <!-- Show More Button for Scaling Examples -->
-            <div class="show-more-container">
-                <button class="show-more-btn" onclick="toggleExamples('scaling')">
-                    Expand more examples <span class="icon">▼</span>
-                </button>
-            </div>
-            <!-- Collapsible Examples Container -->
-            <div class="collapsible-examples" id="scaling-examples">
-                <div class="slider-container">
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-scaling_2-source" src="results/disentangled_object/camera_batch-8_2_source_72_rotation_and_scale_x/source_with_bboxes/frame_005.png">
-                    <figcaption>Source image</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-scaling_2-na" src="results/disentangled_object/camera_batch-8_2_source_72_rotation_and_scale_x/na_results/frame_005.png">
-                    <figcaption>Neural Assets</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-scaling_2-blender" src="results/disentangled_object/camera_batch-8_2_source_72_rotation_and_scale_x/blender_render/frames/frame_control_5.png">
-                    <figcaption>Blender render (2.5 mesh)</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-1-33">
-                    <img id="image-scaling_2-blenderfusion" src="results/disentangled_object/camera_batch-8_2_source_72_rotation_and_scale_x/blenderfusion_results/frame_005.png">
-                    <figcaption>BlenderFusion</figcaption>
-                </figure>
-            </div>
-            <div class="slider-controls">
-                <img src="static/icons/scale.svg" alt="Scale Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                <div class="slider-input-container">
-                    <input type="range" class="frame-slider" id="slider-scaling_2" min="0" max="11" value="5" oninput="changeFrameBySlider('scaling_2', this.value)">
-                </div>
-                <button class="reset-button" onclick="resetToDefault('scaling_2')">Reset</button>
-            </div>
-            <div class="slider-container">
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_scaling_2-source" src="results/disentangled_object/wod/sample_000040_source_5_scale/source_with_bboxes/frame_006.png">
-                    <figcaption>Source image</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_scaling_2-na" src="results/disentangled_object/wod/sample_000040_source_5_scale/na_results/frame_006.png">
-                    <figcaption>Neural Assets</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_scaling_2-blender" src="results/disentangled_object/wod/sample_000040_source_5_scale/blender_render/frames/frame_control_6.png">
-                    <figcaption>Blender render (2.5 mesh)</figcaption>
-                </figure>
-                <figure class="slider-figure aspect-1-5-1">
-                    <img id="image-waymo_scaling_2-blenderfusion" src="results/disentangled_object/wod/sample_000040_source_5_scale/blenderfusion_results/frame_006.png">
-                    <figcaption>BlenderFusion</figcaption>
-                </figure>
-            </div>
-            <div class="slider-controls">
-                <img src="static/icons/scale.svg" alt="Scale Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                <div class="slider-input-container">
-                    <input type="range" class="frame-slider" id="slider-waymo_scaling_2" min="1" max="9" value="6" oninput="changeFrameBySlider('waymo_scaling_2', this.value)">
-                </div>
-                <button class="reset-button" onclick="resetToDefault('waymo_scaling_2')">Reset</button>
-            </div>
-            </div>
-        </div>
-        </div>
-        <div id="camera-control" class="sub-section">
-            <h3 id="camera-control" class="text">Disentangled Camera Control</h3>
-            <p class="text">
-                We demonstrate camera viewpoint manipulation from a single source image. 
-                Results show: <strong>source image</strong>, <strong>Neural Assets</strong> baseline, <strong>BlenderFusion</strong> output, and <strong>ground truth target</strong> from video frames.
-            </p>
-            <div class="example-section">
-            <h4 class="example-title first-example">(1) Objectron Results</h4>
-            <p class="text">  
-                While background regions not visible in the source image may vary across viewpoints due to independent per-view generation, 
-                BlenderFusion still achieves significantly better overall view consistency compared to the baseline, particularly for visible objects and spatial relationships. 
-                Future work could further enhance multi-view consistency through video-based generation or explicit multi-view conditioning.
-            </p>
-                <!-- Camera Control Example 1 -->
-                <div class="slider-container">
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-camera_control_1-source" src="results/camera_control/objectron/chair_batch-2_32/source.png">
-                        <figcaption>Source image</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-camera_control_1-na" src="results/camera_control/objectron/chair_batch-2_32/neural_assets/6.png">
-                        <figcaption>Neural Assets</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-camera_control_1-blenderfusion" src="results/camera_control/objectron/chair_batch-2_32/blenderfusion/6.png">
-                        <figcaption>BlenderFusion</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-camera_control_1-gt" src="results/camera_control/objectron/chair_batch-2_32/targets/6_target.png">
-                        <figcaption>Target image</figcaption>
-                    </figure>
-                </div>
-                <div class="slider-controls">
-                    <img src="static/icons/camera.svg" alt="Camera Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                    <div class="slider-input-container">
-                        <input type="range" class="frame-slider" id="slider-camera_control_1" min="0" max="13" value="6" oninput="changeFrameBySlider('camera_control_1', this.value)">
-                    </div>
-                    <button class="reset-button" onclick="resetToDefault('camera_control_1')">Reset</button>
-                </div>
-                <!-- Show More Button for Objectron Examples -->
-                <div class="show-more-container">
-                    <button class="show-more-btn" onclick="toggleExamples('objectron')">
-                        Expand more examples <span class="icon">▼</span>
-                    </button>
-                </div>
-                <!-- Collapsible Examples Container -->
-                <div class="collapsible-examples" id="objectron-examples">
-                    <!-- Camera Control Example 2 -->
-                <div class="slider-container">
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-camera_control_2-source" src="results/camera_control/objectron/laptop_batch-4_0/source.png">
-                        <figcaption>Source image</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-camera_control_2-na" src="results/camera_control/objectron/laptop_batch-4_0/neural_assets/7.png">
-                        <figcaption>Neural Assets</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-camera_control_2-blenderfusion" src="results/camera_control/objectron/laptop_batch-4_0/blenderfusion/7.png">
-                        <figcaption>BlenderFusion</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-camera_control_2-gt" src="results/camera_control/objectron/laptop_batch-4_0/targets/7_target.png">
-                        <figcaption>Target image</figcaption>
-                    </figure>
-                </div>
-                <div class="slider-controls">
-                    <img src="static/icons/camera.svg" alt="Camera Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                    <div class="slider-input-container">
-                        <input type="range" class="frame-slider" id="slider-camera_control_2" min="0" max="9" value="7" oninput="changeFrameBySlider('camera_control_2', this.value)">
-                    </div>
-                    <button class="reset-button" onclick="resetToDefault('camera_control_2')">Reset</button>
-                </div>
-                <div class="slider-container">
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-camera_control_3-source" src="results/camera_control/objectron/book_batch-12_16/source.png">
-                        <figcaption>Source image</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-camera_control_3-na" src="results/camera_control/objectron/book_batch-12_16/neural_assets/5.png">
-                        <figcaption>Neural Assets</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-camera_control_3-blenderfusion" src="results/camera_control/objectron/book_batch-12_16/blenderfusion/5.png">
-                        <figcaption>BlenderFusion</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-camera_control_3-gt" src="results/camera_control/objectron/book_batch-12_16/targets/5_target.png">
-                        <figcaption>Target image</figcaption>
-                    </figure>
-                </div>
-                <div class="slider-controls">
-                    <img src="static/icons/camera.svg" alt="Camera Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                    <div class="slider-input-container">
-                        <input type="range" class="frame-slider" id="slider-camera_control_3" min="0" max="9" value="5" oninput="changeFrameBySlider('camera_control_3', this.value)">
-                    </div>
-                    <button class="reset-button" onclick="resetToDefault('camera_control_3')">Reset</button>
-                </div>
-                <div class="slider-container">
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-camera_control_4-source" src="results/camera_control/objectron/chair_batch-6_34/source.png">
-                        <figcaption>Source image</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-camera_control_4-na" src="results/camera_control/objectron/chair_batch-6_34/neural_assets/6.png">
-                        <figcaption>Neural Assets</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-camera_control_4-blenderfusion" src="results/camera_control/objectron/chair_batch-6_34/blenderfusion/6.png">
-                        <figcaption>BlenderFusion</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-1-33">
-                        <img id="image-camera_control_4-gt" src="results/camera_control/objectron/chair_batch-6_34/targets/6_target.png">
-                        <figcaption>Target image</figcaption>
-                    </figure>
-                </div>
-                <div class="slider-controls">
-                    <img src="static/icons/camera.svg" alt="Camera Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                    <div class="slider-input-container">
-                        <input type="range" class="frame-slider" id="slider-camera_control_4" min="0" max="10" value="6" oninput="changeFrameBySlider('camera_control_4', this.value)">
-                    </div>
-                    <button class="reset-button" onclick="resetToDefault('camera_control_4')">Reset</button>
-                </div>
-                </div>
-            </div>
-            <div class="example-section">
-                <h4 class="example-title">(2) Waymo Open Dataset Results</h4>
-                <p class="text">  
-                    Objects present in the source image maintain appearance consistency across different camera viewpoints. 
-                    Objects absent from the source (guided by 3D bounding boxes) are synthesized but may vary across views due to independent generation per viewpoint.
-                </p>
-                <!-- Camera Control Example 3 -->
-                <div class="slider-container">
-                    <figure class="slider-figure aspect-1-5-1">
-                        <img id="image-wod_camera_control_1-source" src="results/camera_control/wod/val_sample_000009/source.png">
-                        <figcaption>Source image</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-5-1">
-                        <img id="image-wod_camera_control_1-na" src="results/camera_control/wod/val_sample_000009/neural_assets/4.png">
-                        <figcaption>Neural Assets</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-5-1">
-                        <img id="image-wod_camera_control_1-blenderfusion" src="results/camera_control/wod/val_sample_000009/blenderfusion/4.png">
-                        <figcaption>BlenderFusion</figcaption>
-                    </figure>
-                    <figure class="slider-figure aspect-1-5-1">
-                        <img id="image-wod_camera_control_1-gt" src="results/camera_control/wod/val_sample_000009/targets/4_target.png">
-                        <figcaption>Target image</figcaption>
-                    </figure>
-                </div>
-                <div class="slider-controls">
-                    <img src="static/icons/camera.svg" alt="Camera Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                    <div class="slider-input-container">
-                        <input type="range" class="frame-slider" id="slider-wod_camera_control_1" min="0" max="11" value="4" oninput="changeFrameBySlider('wod_camera_control_1', this.value)">
-                    </div>
-                    <button class="reset-button" onclick="resetToDefault('wod_camera_control_1')">Reset</button>
-                </div>
-                <!-- Show More Button for Waymo Examples -->
-                <div class="show-more-container">
-                    <button class="show-more-btn" onclick="toggleExamples('waymo')">
-                        Expand more examples <span class="icon">▼</span>
-                    </button>
-                </div>
-                <!-- Collapsible Examples Container -->
-                <div class="collapsible-examples" id="waymo-examples">
-                    <!-- Camera Control Example 4 -->
-                    <div class="slider-container">
-                        <figure class="slider-figure aspect-1-5-1">
-                            <img id="image-wod_camera_control_2-source" src="results/camera_control/wod/val_sample_000048/source.png">
-                            <figcaption>Source image</figcaption>
-                        </figure>
-                        <figure class="slider-figure aspect-1-5-1">
-                            <img id="image-wod_camera_control_2-na" src="results/camera_control/wod/val_sample_000048/neural_assets/3.png">
-                            <figcaption>Neural Assets</figcaption>
-                        </figure>
-                        <figure class="slider-figure aspect-1-5-1">
-                            <img id="image-wod_camera_control_2-blenderfusion" src="results/camera_control/wod/val_sample_000048/blenderfusion/3.png">
-                            <figcaption>BlenderFusion</figcaption>
-                        </figure>
-                        <figure class="slider-figure aspect-1-5-1">
-                            <img id="image-wod_camera_control_2-gt" src="results/camera_control/wod/val_sample_000048/targets/3_target.png">
-                            <figcaption>Target image</figcaption>
-                        </figure>
-                    </div>
-                    <div class="slider-controls">
-                        <img src="static/icons/camera.svg" alt="Camera Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                        <div class="slider-input-container">
-                            <input type="range" class="frame-slider" id="slider-wod_camera_control_2" min="0" max="11" value="4" oninput="changeFrameBySlider('wod_camera_control_2', this.value)">
+    
+    <div class="container blog main">
+        <h2 id="scene-composition"  style="text-align: center;">
+            Depth-Aware Scene Composition
+        </h2>
+        
+        <p class="text", style="text-align: justify;">
+        Our method generates realistic depth-aware scene composite image with natural illumination interactions and preserving the foreground and background conents.
+        </p>
+    </div>
+
+    
+    <div class="container blog main gray extra-large">
+        
+        <p class="text" style="text-align: center; color: rgba(4, 4, 127, 0.993); font-style: italic;">
+            Hover over the background images to compose the scene with selected background image.
+        </p>
+                
+        <p class="text" style="text-align: center; color: brown; font-weight: bold;">
+            [Please wait for a few minutes to load all the images]
+        </p>
+        
+        <div class="grid2x3-container" id="grid2x3">
+            <!-- Currently using only two grid, as it looks good in high quality--> 
+            <!-- Grid Item 1 -->
+            <!-- <div class="grid2x3-item">
+                <div class="grid2x3-image-container">
+                    <div class="grid2x3-thumbnails-wrapper">
+                        <h4 class="thumbnail-title" style="text-align: center;">Background</h4>
+                        <div class="grid2x3-thumbnails-container">
+                            <img src="assets/figures/sc/ref/2_ref1.png" alt="Thumbnail 1" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-1" data-hover-src="assets/figures/sc/res/2_1.png">
+                            <img src="assets/figures/sc/ref/2_ref3.jpg" alt="Thumbnail 2" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-1" data-hover-src="assets/figures/sc/res/2_3.png">
+                            <img src="assets/figures/sc/ref/2_ref5.jpg" alt="Thumbnail 3" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-1" data-hover-src="assets/figures/sc/res/2_5.png">
                         </div>
-                        <button class="reset-button" onclick="resetToDefault('wod_camera_control_2')">Reset</button>
                     </div>
-                <!-- Camera Control Example 5 -->
-                    <div class="slider-container">
-                        <figure class="slider-figure aspect-1-5-1">
-                            <img id="image-wod_camera_control_3-source" src="results/camera_control/wod/val_sample_000083/source.png">
-                            <figcaption>Source image</figcaption>
-                        </figure>
-                        <figure class="slider-figure aspect-1-5-1">
-                            <img id="image-wod_camera_control_3-na" src="results/camera_control/wod/val_sample_000083/neural_assets/3.png">
-                            <figcaption>Neural Assets</figcaption>
-                        </figure>
-                        <figure class="slider-figure aspect-1-5-1">
-                            <img id="image-wod_camera_control_3-blenderfusion" src="results/camera_control/wod/val_sample_000083/blenderfusion/3.png">
-                            <figcaption>BlenderFusion</figcaption>
-                        </figure>
-                        <figure class="slider-figure aspect-1-5-1">
-                            <img id="image-wod_camera_control_3-gt" src="results/camera_control/wod/val_sample_000083/targets/3_target.png">
-                            <figcaption>Target image</figcaption>
-                        </figure>
+                    <div class="grid2x3-large-image-wrapper">
+                        <h4 class="Output" style="text-align: center; margin-top: 10px;">Output</h4> 
+                        <img src="assets/figures/sc/src/2.png" alt="Large Image 1" class="grid2x3-large-image" id="grid2x3-large-image-1">
                     </div>
-                    <div class="slider-controls">
-                        <img src="static/icons/camera.svg" alt="Camera Icon" style="width: 40px; height: auto; vertical-align: middle; margin-right: 10px;">
-                        <div class="slider-input-container">
-                            <input type="range" class="frame-slider" id="slider-wod_camera_control_3" min="0" max="9" value="3" oninput="changeFrameBySlider('wod_camera_control_3', this.value)">
+                </div>
+            </div> -->
+            <!-- Repeat Grid Items 2 to 6 -->
+            <!-- Grid Item 2 -->
+            <div class="grid2x3-item">
+                <div class="grid2x3-image-container">
+                    <div class="grid2x3-thumbnails-wrapper">
+                        <h4 class="thumbnail-title" style="text-align: center;">Background</h4>
+                        <div class="grid2x3-thumbnails-container">
+                            <img src="assets/figures/sc/ref/3_ref1.png" alt="Thumbnail 1" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-3" data-hover-src="assets/figures/sc/res/3_1.png">
+                            <img src="assets/figures/sc/ref/3_ref2.jpg" alt="Thumbnail 2" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-3" data-hover-src="assets/figures/sc/res/3_2.jpg">
+                            <img src="assets/figures/sc/ref/3_ref3.jpg" alt="Thumbnail 3" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-3" data-hover-src="assets/figures/sc/res/3_3.png">
                         </div>
-                        <button class="reset-button" onclick="resetToDefault('wod_camera_control_3')">Reset</button>
+                    </div>
+                    <div class="grid2x3-large-image-wrapper">
+                        <h4 class="Output" style="text-align: center; margin-top: 10px;">Output</h4> 
+                        <img src="assets/figures/sc/src/3.jpg" alt="Large Image 3" class="grid2x3-large-image" id="grid2x3-large-image-3">
                     </div>
                 </div>
             </div>
+
+            <div class="grid2x3-item">
+                <div class="grid2x3-image-container">
+                    <div class="grid2x3-thumbnails-wrapper">
+                        <h4 class="thumbnail-title" style="text-align: center;">Background</h4>
+                        <div class="grid2x3-thumbnails-container">
+                            <img src="assets/figures/sc/ref/t_ref2.png" alt="Thumbnail 1" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-2" data-hover-src="assets/figures/sc/res/t2.png">
+                            <img src="assets/figures/sc/ref/t_ref3.jpg" alt="Thumbnail 2" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-2" data-hover-src="assets/figures/sc/res/t3.png">
+                            <img src="assets/figures/sc/ref/t_ref4.png" alt="Thumbnail 3" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-2" data-hover-src="assets/figures/sc/res/t4.png">
+                        </div>
+                    </div>
+                    <div class="grid2x3-large-image-wrapper">
+                        <h4 class="Output" style="text-align: center; margin-top: 10px;">Output</h4> 
+                        <img src="assets/figures/sc/src/t.jpg" alt="Large Image 2" class="grid2x3-large-image" id="grid2x3-large-image-2">
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div id="finegrained" class="sub-section">
-            <h3 id="finegrained-editing" class="text">Fine-grained Editing and Compositing</h3>
-                <p class="text">
-                    BlenderFusion enables complex visual compositing tasks that go beyond simple object transformations. 
-                    We demonstrate sophisticated editing capabilities including more complex multi-object manipulation within single images and 
-                    cross-image scene recomposition. These examples showcase the framework's ability to handle intricate spatial 
-                    relationships and maintain visual coherence across complex editing scenarios.
-                </p>
-            <div class="example-section">
-                <h4 class="example-title first-example">(1) Single-image Complex Manipulation</h4>
-                <!-- Grid of finegrained control examples -->
-                <div class="result-image">
-                    <div class="finegrained-grid">
-                        <figure class="finegrained-item">
-                            <img src="results/finegrained_control_objectron/1.jpg" alt="Finegrained Control Example 1">
-                            <figcaption style="text-align: center; margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;"><strong>Object Manipulation: </strong> Re-arrange and re-scale four shoes </figcaption>
-                        </figure>
-                        <figure class="finegrained-item">
-                            <img src="results/finegrained_control_objectron/2.jpg" alt="Finegrained Control Example 2">
-                            <figcaption style="text-align: center; margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;"><strong>Object Manipulation: </strong> Re-arrange and re-scale three bottles </figcaption>
-                        </figure>
-                        <figure class="finegrained-item">
-                            <img src="results/finegrained_control_objectron/3.jpg" alt="Finegrained Control Example 3">
-                            <figcaption style="text-align: center; margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;"><strong>Object Manipulation: </strong> Re-arrange and re-scale three bottles </figcaption>
-                        </figure>
-                        <figure class="finegrained-item">
-                            <img src="results/finegrained_control_objectron/4.jpg" alt="Finegrained Control Example 4">
-                            <figcaption style="text-align: center; margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;"><strong>Object Manipulation: </strong> Re-arrange and re-scale three chairs </figcaption>
-                        </figure>
-                        <figure class="finegrained-item">
-                            <img src="results/finegrained_control_objectron/5.jpg" alt="Finegrained Control Example 5">
-                            <figcaption style="text-align: center; margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;"><strong>Object Duplication: </strong> Duplicate and re-arange four cups</figcaption>
-                        </figure>
-                        <figure class="finegrained-item">
-                            <img src="results/finegrained_control_objectron/6.jpg" alt="Finegrained Control Example 6">
-                            <figcaption style="text-align: center; margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;"><strong>Object Duplication: </strong> Duplicate and re-arange five cups</figcaption>
-                        </figure>
+    </div>
+
+    <div class="container blog main">
+        <h2 id="scene-relighting" style="text-align: center;">
+            Scene Relighting
+        </h2>
+        
+        <p class="text", style="text-align: justify;">
+            Our method can also be used for scene relighting, where we want to relight the foreground scene based on the background illumination.
+        </p>
+    </div>
+
+    <div class="container blog main gray extra-large">
+        
+        <p class="text" style="text-align: center; color: rgba(4, 4, 127, 0.993); font-style: italic;">
+            Hover over the background image to relight the foreground image in the same illumination.
+        </p>
+
+        <p class="text" style="text-align: center; color: brown; font-weight: bold;">
+            [Please wait for a few minutes to load all the images]
+        </p>
+        
+        <div class="grid1x3-container" id="grid1x3">
+            <!-- Currently using only two grid, as it looks good in high quality--> 
+            <!-- Grid Item 1 -->
+            <!-- <div class="grid2x3-item">
+                <div class="grid2x3-image-container">
+                    <div class="grid2x3-thumbnails-wrapper">
+                        <h4 class="thumbnail-title" style="text-align: center;">Background</h4>
+                        <div class="grid2x3-thumbnails-container">
+                            <img src="assets/figures/sc/ref/2_ref1.png" alt="Thumbnail 1" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-1" data-hover-src="assets/figures/sc/res/2_1.png">
+                            <img src="assets/figures/sc/ref/2_ref3.jpg" alt="Thumbnail 2" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-1" data-hover-src="assets/figures/sc/res/2_3.png">
+                            <img src="assets/figures/sc/ref/2_ref5.jpg" alt="Thumbnail 3" class="grid2x3-thumbnail"
+                                data-target="grid2x3-large-image-1" data-hover-src="assets/figures/sc/res/2_5.png">
+                        </div>
+                    </div>
+                    <div class="grid2x3-large-image-wrapper">
+                        <h4 class="Output" style="text-align: center; margin-top: 10px;">Output</h4> 
+                        <img src="assets/figures/sc/src/2.png" alt="Large Image 1" class="grid2x3-large-image" id="grid2x3-large-image-1">
+                    </div>
+                </div>
+            </div> -->
+            <!-- Repeat Grid Items 2 to 6 -->
+            <!-- Grid Item 2 -->
+            <div class="grid1x3-item">
+                <div class="grid1x3-image-container">
+                    <div class="grid1x3-thumbnails-wrapper">
+                        <h4 class="thumbnail-title" style="text-align: center;">Background</h4>
+                        <div class="grid1x3-thumbnails-container">
+                            <img src="assets/figures/sr/ref/2_ref4.png" alt="Thumbnail 1" class="grid1x3-thumbnail"
+                                data-target="grid1x3-large-image-2" data-hover-src="assets/figures/sr/res/3_4.png">
+                            <img src="assets/figures/sr/ref/2_ref3.jpg" alt="Thumbnail 2" class="grid1x3-thumbnail"
+                                data-target="grid1x3-large-image-2" data-hover-src="assets/figures/sr/res/3_2.png">
+                            <img src="assets/figures/sr/ref/9_ref4.jpg" alt="Thumbnail 3" class="grid1x3-thumbnail"
+                                data-target="grid1x3-large-image-2" data-hover-src="assets/figures/sr/res/3_3.png">
+                        </div>
+                    </div>
+                    <div class="grid1x3-large-image-wrapper">
+                        <h4 class="Output" style="text-align: center; margin-top: 10px;">Output</h4> 
+                        <img src="assets/figures/sr/src/3.png" alt="Large Image 2" class="grid1x3-large-image" id="grid1x3-large-image-2">
                     </div>
                 </div>
             </div>
-            <div class="example-section">
-                <h4 class="example-title">(2) Multi-image Scene Recomposition</h4>
-                <div class="result-image">
-                    <div class="finegrained-grid">
-                        <figure class="finegrained-item">
-                            <img src="results/finegrained_control_objectron/7.jpg" alt="Finegrained Control Example 7">
-                            <figcaption style="text-align: center; margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;"><strong>Scene Recompositing:</strong> Two objects and background from three images </figcaption>
-                        </figure>
-                        <figure class="finegrained-item">
-                            <img src="results/finegrained_control_objectron/8.jpg" alt="Finegrained Control Example 8">
-                            <figcaption style="text-align: center; margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;"><strong>Scene Recompositing:</strong> Three objects and background from four images </figcaption>
-                        </figure>
+            <div class="grid1x3-item">
+                <div class="grid1x3-image-container">
+                    <div class="grid1x3-thumbnails-wrapper">
+                        <h4 class="thumbnail-title" style="text-align: center;">Background</h4>
+                        <div class="grid1x3-thumbnails-container">
+                            <img src="assets/figures/sr/ref/2_ref1.png" alt="Thumbnail 1" class="grid1x3-thumbnail"
+                                data-target="grid1x3-large-image-3" data-hover-src="assets/figures/sr/res/2_1.png">
+                            <img src="assets/figures/sr/ref/2_ref2.jpg" alt="Thumbnail 2" class="grid1x3-thumbnail"
+                                data-target="grid1x3-large-image-3" data-hover-src="assets/figures/sr/res/2_2.png">
+                            <img src="assets/figures/sr/ref/2_ref3.jpg" alt="Thumbnail 3" class="grid1x3-thumbnail"
+                                data-target="grid1x3-large-image-3" data-hover-src="assets/figures/sr/res/2_3.png">
+                        </div>
                     </div>
-                    <div class="finegrained-grid-wide">
-                        <figure class="finegrained-item-wide">
-                            <img src="results/finegrained_control_wod/1.jpg" alt="WOD Finegrained Control Example 1">
-                            <figcaption style="text-align: center; margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;"><strong>Scene Recompositing:</strong> Objects from image 1, 2, 3; Background from image 2; Layout specified by image 4 </figcaption>
-                        </figure>
-                        <figure class="finegrained-item-wide">
-                            <img src="results/finegrained_control_wod/2.jpg" alt="WOD Finegrained Control Example 2">
-                            <figcaption style="text-align: center; margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;"><strong>Scene Recompositing:</strong> Objects from image 1, 2; Background from image 3; Layout specified by image 4 </figcaption>
-                        </figure>
+                    <div class="grid1x3-large-image-wrapper">
+                        <h4 class="Output" style="text-align: center; margin-top: 10px;">Output</h4> 
+                        <img src="assets/figures/sr/src/2.png" alt="Large Image 3" class="grid1x3-large-image" id="grid1x3-large-image-3">
                     </div>
                 </div>
             </div>
+
         </div>
-        <div id="ood" class="sub-section">
-            <h3 id="generalization" class="text">Out-of-Distribution Generalization</h3>            
-            <div class="example-section">
-                <h4 class="example-title first-example">(1) Editing In-the-Wild Images</h4>
-                <p class="text">
-                    BlenderFusion can be applied to in-the-wild images and works reasonably on unseen scenes and objects. 
-                    SUN RGB-D and ARKitScenes are real-world indoor scene datasets, while Hypersim is a complicated synthetic indoor scene dataset.
-                </p>
-                <div class="result-image">
-                    <div class="finegrained-grid-wide">
-                        <figure class="finegrained-item-wide">
-                            <img src="results/ood/1.jpg" alt="OOD Example 1">
-                            <figcaption style="text-align: center; margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;"><strong>Generalization:</strong> Images are from the SUN RGB-D dataset. </figcaption>
-                        </figure>
-                        <figure class="finegrained-item-wide">
-                            <img src="results/ood/2.jpg" alt="OOD Example 2">
-                            <figcaption style="text-align: center; margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;"><strong>Generalization:</strong> Images are from the ARKitScenes dataset. </figcaption>
-                        </figure>
-                        <figure class="finegrained-item-wide">
-                            <img src="results/ood/3.jpg" alt="OOD Example 3">
-                            <figcaption style="text-align: center; margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;"><strong>Generalization:</strong> Images are from the Hypersim dataset. </figcaption>
-                        </figure>
+    </div>
+
+    <div class="container blog main">
+        <h2 id="object-insertion" style="text-align: center;">
+            Depth-Aware Object Insertion 
+        </h2>
+        <p class="text", style="text-align: justify;">
+            Given a single object image, our method can realistically insert the object at a precise depth, with natural blending with scene content, color harmonization, and appropriate shadows. 
+        </p>
+    </div>  
+
+        
+    <div class="container blog main gray extra-large">
+        <p class="text" style="text-align: center; color: rgba(4, 4, 127, 0.993); font-style: italic;">
+            Hower over the object thumbnail image to insert it in the scene. 
+        </p>
+        <div class="columns-4">
+            <!-- Grid Item 1 -->
+            <div class="grid-item">
+                <div class="image-wrapper">
+                    <img src="assets/figures/ob/src/4_src.png" alt="Main Image 1" class="main-image" id="large-image-1">
+                    <div class="overlay-container">
+                        <img src="assets/figures/ob/ref/4_ref.png" alt="Small Image 1" class="small-image"
+                             data-target="large-image-1" data-hover-src="assets/figures/ob/res/4_res.png">
                     </div>
                 </div>
             </div>
-            <div class="example-section">
-                <h4 class="example-title">(2) Progressive Object Editing</h4>
-                <p class="text">
-                    BlenderFusion inherits Blender's comprehensive object editing capabilities, enabling the generative compositor 
-                    to handle advanced editing tasks beyond those covered in training data. The framework supports progressive 
-                    multi-step editing workflows including color modification, material changes, part-level manipulation, geometric 
-                    deformation, and text engraving. These examples demonstrate the extensibility and versatility of our approach 
-                    for complex creative workflows.
-                </p>
-                <div class="result-image">
-                    <div class="finegrained-grid-wide">
-                        <figure class="finegrained-item-wide">
-                            <img src="results/progressive/1.jpg" alt="Progressive Editing Example 1">
-                            <figcaption style="text-align: center; margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;"><strong>Progressive Editing:</strong> Color change → Rotation → Text engraving → Shape deformation. </figcaption>
-                        </figure>
-                        <figure class="finegrained-item-wide">
-                            <img src="results/progressive/2.jpg" alt="Progressive Editing Example 2">
-                            <figcaption style="text-align: center; margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;"><strong>Progressive Editing:</strong> Color change → Part-level manipulation → Texture change → Rigid transform.</figcaption>
-                        </figure>
+            <!-- Grid Item 2 -->
+            <div class="grid-item">
+                <div class="image-wrapper">
+                    <img src="assets/figures/ob/src/1_src.png" alt="Main Image 2" class="main-image" id="large-image-2">
+                    <div class="overlay-container">
+                        <img src="assets/figures/ob/ref/1_ref.png" alt="Small Image 2" class="small-image"
+                             data-target="large-image-2" data-hover-src="assets/figures/ob/res/1_res.png">
                     </div>
+                </div>
+            </div>
+            <!-- Grid Item 3 -->
+            <div class="grid-item">
+                <div class="image-wrapper">
+                    <img src="assets/figures/ob/src/3_src.png" alt="Main Image 3" class="main-image" id="large-image-3">
+                    <div class="overlay-container">
+                        <img src="assets/figures/ob/ref/3_ref.png" alt="Small Image 3" class="small-image"
+                             data-target="large-image-3" data-hover-src="assets/figures/ob/res/3_res.png">
+                    </div>
+                </div>
+            </div>
+            <!-- Grid Item 4 -->
+            <div class="grid-item">
+                <div class="image-wrapper">
+                    <img src="assets/figures/ob/src/2_src.png" alt="Main Image 4" class="main-image" id="large-image-4">
+                    <div class="overlay-container">
+                        <img src="assets/figures/ob/ref/2_ref.png" alt="Small Image 4" class="small-image"
+                             data-target="large-image-4" data-hover-src="assets/figures/ob/res/2_res.png">
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for additional grid items -->
+        </div>
+
+        <div class="columns-4">
+            <!-- Grid Item 1 -->
+            <div class="grid-item">
+                <div class="image-wrapper">
+                    <img src="assets/figures/ob/src/5_src.png" alt="Main Image 5" class="main-image" id="large-image-5">
+                    <div class="overlay-container">
+                        <img src="assets/figures/ob/ref/5_ref.png" alt="Small Image 5" class="small-image"
+                             data-target="large-image-5" data-hover-src="assets/figures/ob/res/5_res.png">
+                    </div>
+                </div>
+            </div>
+            <!-- Grid Item 2 -->
+            <div class="grid-item">
+                <div class="image-wrapper">
+                    <img src="assets/figures/ob/src/6_src.png" alt="Main Image 6" class="main-image" id="large-image-6">
+                    <div class="overlay-container">
+                        <img src="assets/figures/ob/ref/6_ref.png" alt="Small Image 6" class="small-image"
+                             data-target="large-image-6" data-hover-src="assets/figures/ob/res/6_res.png">
+                    </div>
+                </div>
+            </div>
+            <!-- Grid Item 3 -->
+            <div class="grid-item">
+                <div class="image-wrapper">
+                    <img src="assets/figures/ob/src/9_src.png" alt="Main Image 7" class="main-image" id="large-image-7">
+                    <div class="overlay-container">
+                        <img src="assets/figures/ob/ref/9_ref.png" alt="Small Image 7" class="small-image"
+                             data-target="large-image-7" data-hover-src="assets/figures/ob/res/9_res.png">
+                    </div>
+                </div>
+            </div>
+            <!-- Grid Item 4 -->
+            <div class="grid-item">
+                <div class="image-wrapper">
+                    <img src="assets/figures/ob/src/8_src.png" alt="Main Image 8" class="main-image" id="large-image-8">
+                    <div class="overlay-container">
+                        <img src="assets/figures/ob/ref/8_ref.png" alt="Small Image 8" class="small-image"
+                             data-target="large-image-8" data-hover-src="assets/figures/ob/res/8_res.png">
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for additional grid items -->
+        </div>
+    </div>
+    
+    <!-- For object moving -->
+    <div class="container blog main gray extra-large">
+        <h2 id="object-movement" style="text-align: center;">
+            Placing Object at different locations
+        </h2>
+        <p class="text" style="text-align: center; color: rgba(4, 4, 127, 0.993); font-style: italic;">
+            Hover over the image to move the placed object in the scene. 
+        </p>
+        <div class="grid1x3-container_new" id="new-grid1x3">
+            <!-- Grid Item 1 -->
+            <div class="grid1x3-item-move">
+                <div class="grid1x3-image-container">
+                    <img src="assets/figures/obm/src/1_src.png" 
+                         alt="Main Image 1" 
+                         class="hover-image" 
+                         data-hover-src="assets/figures/obm/res/1_res.png">
+                </div>
+            </div>
+            <!-- Grid Item 2 -->
+            <div class="grid1x3-item-move">
+                <div class="grid1x3-image-container">
+                    <img src="assets/figures/obm/src/7_src.png" 
+                         alt="Main Image 2" 
+                         class="hover-image" 
+                         data-hover-src="assets/figures/obm/res/7_res.png">
+                </div>
+            </div>
+            <!-- Grid Item 3 -->
+            <div class="grid1x3-item-move">
+                <div class="grid1x3-image-container">
+                    <img src="assets/figures/obm/src/3_src.png" 
+                         alt="Main Image 3" 
+                         class="hover-image" 
+                         data-hover-src="assets/figures/obm/res/3_res.png">
                 </div>
             </div>
         </div>
     </div>
+    
     </d-article>
     <d-appendix>
         <h3 style="margin-top: 30px; margin-bottom: 15px; font-size: 1.3em; color: #2c3e50;">BibTeX</h3>
@@ -983,649 +644,140 @@
     <div style="width: 100%; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border-top: 1px solid #cbd5e1; margin-top: 40px; padding: 20px 0; text-align: center;">
         <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
             <p style="color: #64748b; font-size: 0.9em; font-style: italic; margin: 0; line-height: 1.5;">
-                This project page template is adapted from <a href="https://virl-platform.github.io/" target="_blank" style="color: #3b82f6; text-decoration: none; font-weight: 500;">V-IRL</a> and  <a href="https://cambrian-mllm.github.io/" target="_blank" style="color: #3b82f6; text-decoration: none; font-weight: 500;">Cambrian-1</a>, thanks for the beautiful template! 
+                This project page template is adapted from <a href="https://blenderfusion.github.io/" target="_blank" style="color: #3b82f6; text-decoration: none; font-weight: 500;">BlenderFusion</a>, thanks for the beautiful template! 
             </p>
         </div>
     </div>
     <!-- <script src="./static/js/nav-bar.js"></script> -->
+    
+    <!-- FOr Adding Layeredit results -->
+    <script src="assets/scripts/main2.js"></script>    
+
     <script>
-        // Global state for current frame values
-        var currentFrames = {};
-        // Configuration for each example
-        var exampleConfigs = {
-            "translation_1": {
-                key: "translation_1",
-                dir: "results/disentangled_object/bottle_batch-45_10_source_7_translation_z",
-                sourceSubdir: "source_with_bboxes",
-                sourcePrefix: "frame_",
-                blenderSubdir: "blender_render/frames",
-                blenderPrefix: "frame_control_",
-                blenderfusionSubdir: "blenderfusion_results", 
-                blenderfusionPrefix: "frame_",
-                naSubdir: "na_results",
-                naPrefix: "frame_",
-                min: 0,
-                max: 11,
-                default: 5
-            },
-            "translation_2": {
-                key: "translation_2",
-                dir: "results/disentangled_object/shoe_batch-1_34_source_43_translation_z",
-                sourceSubdir: "source_with_bboxes",
-                sourcePrefix: "frame_",
-                blenderSubdir: "blender_render/frames",
-                blenderPrefix: "frame_control_",
-                blenderfusionSubdir: "blenderfusion_results", 
-                blenderfusionPrefix: "frame_",
-                naSubdir: "na_results",
-                naPrefix: "frame_",
-                min: 0,
-                max: 11,
-                default: 0
-            },
-            "waymo_translation_1": {
-                key: "waymo_translation_1",
-                dir: "results/disentangled_object/wod/sample_000068_source_1_translation_z",
-                sourceSubdir: "source_with_bboxes",
-                sourcePrefix: "frame_",
-                blenderSubdir: "blender_render/frames",
-                blenderPrefix: "frame_control_",
-                blenderfusionSubdir: "blenderfusion_results", 
-                blenderfusionPrefix: "frame_",
-                naSubdir: "na_results",
-                naPrefix: "frame_",
-                min: 0,
-                max: 14,
-                default: 5
-            },
-            "waymo_translation_2": {
-                key: "waymo_translation_2",
-                dir: "results/disentangled_object/wod/sample_000079_source_11_translation_x",
-                sourceSubdir: "source_with_bboxes",
-                sourcePrefix: "frame_",
-                blenderSubdir: "blender_render/frames",
-                blenderPrefix: "frame_control_",
-                blenderfusionSubdir: "blenderfusion_results", 
-                blenderfusionPrefix: "frame_",
-                naSubdir: "na_results",
-                naPrefix: "frame_",
-                min: 0,
-                max: 10,
-                default: 0
-            },
-            "rotation_1": {
-                key: "rotation_1", 
-                dir: "results/disentangled_object/cereal_box_batch-6_13_source_3_rotation_x",
-                sourceSubdir: "source_with_bboxes",
-                sourcePrefix: "frame_",
-                blenderSubdir: "blender_render/frames",
-                blenderPrefix: "frame_control_",
-                blenderfusionSubdir: "blenderfusion_results",
-                blenderfusionPrefix: "frame_", 
-                naSubdir: "na_results",
-                naPrefix: "frame_",
-                min: 0,
-                max: 11,
-                default: 6
-            },
-            "rotation_2": {
-                key: "rotation_2", 
-                dir: "results/disentangled_object/chair_batch-4_2_source_2_rotation_x",
-                sourceSubdir: "source_with_bboxes",
-                sourcePrefix: "frame_",
-                blenderSubdir: "blender_render/frames",
-                blenderPrefix: "frame_control_",
-                blenderfusionSubdir: "blenderfusion_results",
-                blenderfusionPrefix: "frame_", 
-                naSubdir: "na_results",
-                naPrefix: "frame_",
-                min: 0,
-                max: 11,
-                default: 6
-            },
-            "waymo_rotation_1": {
-                key: "waymo_rotation_1", 
-                dir: "results/disentangled_object/wod/sample_000224_source_5_rotation_y",
-                sourceSubdir: "source_with_bboxes",
-                sourcePrefix: "frame_",
-                blenderSubdir: "blender_render/frames",
-                blenderPrefix: "frame_control_",
-                blenderfusionSubdir: "blenderfusion_results",
-                blenderfusionPrefix: "frame_", 
-                naSubdir: "na_results",
-                naPrefix: "frame_",
-                min: 0,
-                max: 11,
-                default: 6
-            },
-            "waymo_rotation_2": {
-                key: "waymo_rotation_2", 
-                dir: "results/disentangled_object/wod/sample_000084_source_21_rotation_y",
-                sourceSubdir: "source_with_bboxes",
-                sourcePrefix: "frame_",
-                blenderSubdir: "blender_render/frames",
-                blenderPrefix: "frame_control_",
-                blenderfusionSubdir: "blenderfusion_results",
-                blenderfusionPrefix: "frame_", 
-                naSubdir: "na_results",
-                naPrefix: "frame_",
-                min: 0,
-                max: 11,
-                default: 6
-            },
-            "scaling_1": {
-                key: "scaling_1",
-                dir: "results/disentangled_object/cup_batch-7_4_source_0_scale",
-                sourceSubdir: "source_with_bboxes",
-                sourcePrefix: "frame_",
-                blenderSubdir: "blender_render/frames", 
-                blenderPrefix: "frame_control_",
-                blenderfusionSubdir: "blenderfusion_results",
-                blenderfusionPrefix: "frame_",
-                naSubdir: "na_results", 
-                naPrefix: "frame_",
-                min: 0,
-                max: 8,
-                default: 5
-            },
-            "scaling_2": {
-                key: "scaling_2",
-                dir: "results/disentangled_object/camera_batch-8_2_source_72_rotation_and_scale_x",
-                sourceSubdir: "source_with_bboxes",
-                sourcePrefix: "frame_",
-                blenderSubdir: "blender_render/frames", 
-                blenderPrefix: "frame_control_",
-                blenderfusionSubdir: "blenderfusion_results",
-                blenderfusionPrefix: "frame_",
-                naSubdir: "na_results", 
-                naPrefix: "frame_",
-                min: 0,
-                max: 11,
-                default: 6
-            },
-            "waymo_scaling_1": {
-                key: "waymo_scaling_1",
-                dir: "results/disentangled_object/wod/sample_000099_source_10_scale",
-                sourceSubdir: "source_with_bboxes",
-                sourcePrefix: "frame_",
-                blenderSubdir: "blender_render/frames", 
-                blenderPrefix: "frame_control_",
-                blenderfusionSubdir: "blenderfusion_results",
-                blenderfusionPrefix: "frame_",
-                naSubdir: "na_results", 
-                naPrefix: "frame_",
-                min: 0,
-                max: 9,
-                default: 6
-            },
-            "waymo_scaling_2": {
-                key: "waymo_scaling_2",
-                dir: "results/disentangled_object/wod/sample_000040_source_5_scale",
-                sourceSubdir: "source_with_bboxes",
-                sourcePrefix: "frame_",
-                blenderSubdir: "blender_render/frames", 
-                blenderPrefix: "frame_control_",
-                blenderfusionSubdir: "blenderfusion_results",
-                blenderfusionPrefix: "frame_",
-                naSubdir: "na_results", 
-                naPrefix: "frame_",
-                min: 1,
-                max: 9,
-                default: 6
-            }
-        };
-        // Configuration for camera control examples (source fixed, columns 2-4 change)
-        var cameraConfigs = {
-            "camera_control_1": {
-                key: "camera_control_1",
-                dir: "results/camera_control/objectron/chair_batch-2_32",
-                naSubdir: "neural_assets",
-                blenderfusionSubdir: "blenderfusion",
-                gtSubdir: "targets",
-                min: 0,
-                max: 13,
-                default: 6
-            },
-            "camera_control_2": {
-                key: "camera_control_2",
-                dir: "results/camera_control/objectron/laptop_batch-4_0",
-                naSubdir: "neural_assets",
-                blenderfusionSubdir: "blenderfusion",
-                gtSubdir: "targets",
-                min: 0,
-                max: 9,
-                default: 7
-            },
-            "camera_control_3": {
-                key: "camera_control_3",
-                dir: "results/camera_control/objectron/book_batch-12_16",
-                naSubdir: "neural_assets",
-                blenderfusionSubdir: "blenderfusion",
-                gtSubdir: "targets",
-                min: 0,
-                max: 9,
-                default: 5
-            },
-            "camera_control_4": {
-                key: "camera_control_4",
-                dir: "results/camera_control/objectron/chair_batch-6_34",
-                naSubdir: "neural_assets",
-                blenderfusionSubdir: "blenderfusion",
-                gtSubdir: "targets",
-                min: 0,
-                max: 10,
-                default: 6
-            },
-            "wod_camera_control_1": {
-                key: "wod_camera_control_1",
-                dir: "results/camera_control/wod/val_sample_000009",
-                naSubdir: "neural_assets",
-                blenderfusionSubdir: "blenderfusion",
-                gtSubdir: "targets",
-                min: 0,
-                max: 11,
-                default: 4
-            },
-            "wod_camera_control_2": {
-                key: "wod_camera_control_2",
-                dir: "results/camera_control/wod/val_sample_000048",
-                naSubdir: "neural_assets",
-                blenderfusionSubdir: "blenderfusion",
-                gtSubdir: "targets",
-                min: 0,
-                max: 11,
-                default: 3
-            },
-            "wod_camera_control_3": {
-                key: "wod_camera_control_3",
-                dir: "results/camera_control/wod/val_sample_000083",
-                naSubdir: "neural_assets",
-                blenderfusionSubdir: "blenderfusion",
-                gtSubdir: "targets",
-                min: 0,
-                max: 9,
-                default: 3
-            }
-        };
-        // Function to change frame by slider input
-        function changeFrameBySlider(configKey, newFrame) {
-            newFrame = parseInt(newFrame);
-            var config = exampleConfigs[configKey] || cameraConfigs[configKey];
-            if (!config) {
-                return;
-            }
-            currentFrames[configKey] = newFrame;
-            // Set this control as focused when user interacts with it
-            setFocusedControl(configKey);
-            // Update images
-            if (cameraConfigs[configKey]) {
-                updateCameraImageByFrame(configKey, newFrame, config);
-            } else {
-                updateImageByFrame(configKey, newFrame, config);
-            }
-        }
-        // Function to change frame by increment (for keyboard navigation)
-        function changeFrame(configKey, increment) {
-            var config = exampleConfigs[configKey] || cameraConfigs[configKey];
-            if (!config) return;
-            // Fix: properly handle frame 0 (don't use || which treats 0 as falsy)
-            var currentFrame = (currentFrames[configKey] !== undefined) ? currentFrames[configKey] : config.default;
-            var newFrame = currentFrame + increment;
-            // Clamp to valid range - fix boundary issue
-            newFrame = Math.max(config.min, Math.min(config.max, newFrame));
-            // Only update if the frame actually changed
-            if (newFrame === currentFrame) {
-                return; // Don't do anything if we're at boundary
-            }
-            currentFrames[configKey] = newFrame;
-            // Set this control as focused when user interacts with it
-            setFocusedControl(configKey);
-            // Update images
-            if (cameraConfigs[configKey]) {
-                updateCameraImageByFrame(configKey, newFrame, config);
-            } else {
-                updateImageByFrame(configKey, newFrame, config);
-            }
-            // Update slider value
-            updateSliderValue(configKey, newFrame);
-        }
-        // Function to reset to default frame
-        function resetToDefault(configKey) {
-            var config = exampleConfigs[configKey] || cameraConfigs[configKey];
-            if (!config) return;
-            currentFrames[configKey] = config.default;
-            // Set this control as focused when user interacts with it
-            setFocusedControl(configKey);
-            // Update images
-            if (cameraConfigs[configKey]) {
-                updateCameraImageByFrame(configKey, config.default, config);
-            } else {
-                updateImageByFrame(configKey, config.default, config);
-            }
-            // Update slider value
-            updateSliderValue(configKey, config.default);
-        }
-        // Function to update slider value
-        function updateSliderValue(configKey, value) {
-            var slider = document.getElementById("slider-" + configKey);
-            if (slider) {
-                slider.value = value;
-            }
-        }
-        // Global object to track ongoing transitions per slider
-        var activeSliderTransitions = {};
-        // Smooth image transition function with proper slider-level cancellation
-        function smoothImageTransition(mainImg, overlayImg, newSrc, configKey) {
-            // If the new source is the same as current, no need to transition
-            if (mainImg.src === newSrc || mainImg.src.endsWith(newSrc)) {
-                return;
-            }
-            var figure = mainImg.parentElement;
-            // Set up the overlay image with the new source
-            overlayImg.src = newSrc;
-            // When the new image loads, start the crossfade transition
-            overlayImg.onload = function() {
-                // Check if this transition is still relevant (slider still has active transition)
-                if (activeSliderTransitions[configKey]) {
-                    // Add transition class to trigger CSS animation
-                    figure.classList.add('transitioning');
-                    // The timeout is managed at the slider level, not here
-                }
-            };
-            // Handle loading errors
-            overlayImg.onerror = function() {
-                // If the new image fails to load, just update the main image directly
-                mainImg.src = newSrc;
-                figure.classList.remove('transitioning');
-            };
-        }
-        // Function to cancel all transitions for a slider and update to final state
-        function cancelSliderTransitions(configKey, finalFrameValue) {
-            if (activeSliderTransitions[configKey]) {
-                clearTimeout(activeSliderTransitions[configKey].timeout);
-                // Remove transitioning class from all figures for this slider
-                var allFigures = document.querySelectorAll('[id*="' + configKey + '"]');
-                allFigures.forEach(function(element) {
-                    if (element.parentElement && element.parentElement.classList.contains('slider-figure')) {
-                        element.parentElement.classList.remove('transitioning');
-                    }
-                });
-                // Immediately update all images to final state
-                if (cameraConfigs[configKey]) {
-                    updateCameraImageByFrameImmediate(configKey, finalFrameValue, cameraConfigs[configKey]);
-                } else {
-                    updateImageByFrameImmediate(configKey, finalFrameValue, exampleConfigs[configKey]);
-                }
-                delete activeSliderTransitions[configKey];
-            }
-        }
-        // Immediate update functions (no transitions)
-        function updateImageByFrameImmediate(configKey, frameValue, config) {
-            var imageNumber = String(frameValue).padStart(3, '0');
-            var sourcePath = config.dir + "/" + config.sourceSubdir + "/" + config.sourcePrefix + imageNumber + ".png";
-            var blenderPath = config.dir + "/" + config.blenderSubdir + "/" + config.blenderPrefix + frameValue + ".png";
-            var blenderfusionPath = config.dir + "/" + config.blenderfusionSubdir + "/" + config.blenderfusionPrefix + imageNumber + ".png";
-            var naPath = config.dir + "/" + config.naSubdir + "/" + config.naPrefix + imageNumber + ".png";
-            var sourceImg = document.getElementById("image-" + config.key + "-source");
-            var blenderImg = document.getElementById("image-" + config.key + "-blender");
-            var blenderfusionImg = document.getElementById("image-" + config.key + "-blenderfusion");
-            var naImg = document.getElementById("image-" + config.key + "-na");
-            var sourceOverlay = document.getElementById("overlay-" + config.key + "-source");
-            var blenderOverlay = document.getElementById("overlay-" + config.key + "-blender");
-            var blenderfusionOverlay = document.getElementById("overlay-" + config.key + "-blenderfusion");
-            var naOverlay = document.getElementById("overlay-" + config.key + "-na");
-            if (sourceImg) { sourceImg.src = sourcePath; if (sourceOverlay) sourceOverlay.src = sourcePath; }
-            if (blenderImg) { blenderImg.src = blenderPath; if (blenderOverlay) blenderOverlay.src = blenderPath; }
-            if (blenderfusionImg) { blenderfusionImg.src = blenderfusionPath; if (blenderfusionOverlay) blenderfusionOverlay.src = blenderfusionPath; }
-            if (naImg) { naImg.src = naPath; if (naOverlay) naOverlay.src = naPath; }
-        }
-        function updateCameraImageByFrameImmediate(configKey, frameValue, config) {
-            var naPath = config.dir + "/" + config.naSubdir + "/" + frameValue + ".png";
-            var blenderfusionPath = config.dir + "/" + config.blenderfusionSubdir + "/" + frameValue + ".png";
-            var gtPath = config.dir + "/" + config.gtSubdir + "/" + frameValue + "_target.png";
-            var naImg = document.getElementById("image-" + config.key + "-na");
-            var blenderfusionImg = document.getElementById("image-" + config.key + "-blenderfusion");
-            var gtImg = document.getElementById("image-" + config.key + "-gt");
-            var naOverlay = document.getElementById("overlay-" + config.key + "-na");
-            var blenderfusionOverlay = document.getElementById("overlay-" + config.key + "-blenderfusion");
-            var gtOverlay = document.getElementById("overlay-" + config.key + "-gt");
-            if (naImg) { naImg.src = naPath; if (naOverlay) naOverlay.src = naPath; }
-            if (blenderfusionImg) { blenderfusionImg.src = blenderfusionPath; if (blenderfusionOverlay) blenderfusionOverlay.src = blenderfusionPath; }
-            if (gtImg) { gtImg.src = gtPath; if (gtOverlay) gtOverlay.src = gtPath; }
-        }
-        // Function to add crossfade overlays to all slider figures
-        function addCrossfadeOverlays() {
-            var sliderFigures = document.querySelectorAll('.slider-figure');
-            sliderFigures.forEach(function(figure) {
-                var mainImg = figure.querySelector('img:not(.crossfade-overlay)');
-                if (mainImg && !figure.querySelector('.crossfade-overlay')) {
-                    var overlay = document.createElement('img');
-                    overlay.className = 'crossfade-overlay';
-                    overlay.id = 'overlay-' + mainImg.id.replace('image-', '');
-                    overlay.src = mainImg.src; // Initialize with same image as main
-                    overlay.alt = ''; // Prevent broken image text from showing
-                    mainImg.parentNode.insertBefore(overlay, mainImg.nextSibling);
+        // JavaScript to handle hover interaction for small images
+        document.querySelectorAll('.small-image').forEach(smallImage => {
+            let originalSrc; // Variable to store the original src
+        
+            smallImage.addEventListener('mouseenter', () => {
+                // Get the target large image ID and hover source
+                const targetId = smallImage.getAttribute('data-target');
+                const hoverSrc = smallImage.getAttribute('data-hover-src');
+        
+                // Change the large image's source
+                const largeImage = document.getElementById(targetId);
+                if (largeImage) {
+                    originalSrc = largeImage.src; // Save the original src
+                    largeImage.src = hoverSrc;
                 }
             });
-        }
-        function attachSliderEvents() {
-            // Add crossfade overlays to all slider figures
-            addCrossfadeOverlays();
-            // Initialize all examples with default values
-            Object.keys(exampleConfigs).forEach(function(configKey) {
-                var config = exampleConfigs[configKey];
-                currentFrames[configKey] = config.default;
-                updateImageByFrame(configKey, config.default, config);
-                updateSliderValue(configKey, config.default);
-            });
-            // Initialize all camera control examples with default values
-            Object.keys(cameraConfigs).forEach(function(configKey) {
-                var config = cameraConfigs[configKey];
-                currentFrames[configKey] = config.default;
-                updateCameraImageByFrame(configKey, config.default, config);
-                updateSliderValue(configKey, config.default);
-            });
-        }
-        // Track currently focused control for keyboard navigation
-        var focusedControl = null;
-        // Add click handlers to arrow controls to set focus
-        function setFocusedControl(configKey) {
-            focusedControl = configKey;
-            // Visual feedback - highlight the focused control
-            updateFocusedControlVisual();
-        }
-        function updateFocusedControlVisual() {
-            // Remove focus styling from all controls
-            Object.keys(exampleConfigs).concat(Object.keys(cameraConfigs)).forEach(function(configKey) {
-                var sliderContainer = document.getElementById("slider-" + configKey)?.parentElement;
-                if (sliderContainer && sliderContainer.classList.contains('slider-input-container')) {
-                    sliderContainer.style.borderColor = '#e2e8f0';
-                    sliderContainer.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
+        
+            smallImage.addEventListener('mouseleave', () => {
+                // Restore the original source of the large image
+                const targetId = smallImage.getAttribute('data-target');
+                const largeImage = document.getElementById(targetId);
+                if (largeImage && originalSrc) {
+                    largeImage.src = originalSrc;
                 }
             });
-            // Add focus styling to the focused control
-            if (focusedControl) {
-                var focusedSliderContainer = document.getElementById("slider-" + focusedControl)?.parentElement;
-                if (focusedSliderContainer && focusedSliderContainer.classList.contains('slider-input-container')) {
-                    focusedSliderContainer.style.borderColor = '#3b82f6';
-                    focusedSliderContainer.style.boxShadow = '0 2px 8px rgba(59, 130, 246, 0.3), 0 1px 3px rgba(0, 0, 0, 0.1)';
-                }
-            }
-        }
-        // Add keyboard support for arrow controls
-        document.addEventListener('keydown', function(event) {
-            // Only process arrow keys when not typing in an input field
-            if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
-                return;
-            }
-            // Don't interfere with text selection (Shift key held down)
-            if (event.shiftKey) {
-                return;
-            }
-            // Don't interfere with other modifier keys that might be used for text operations
-            if (event.ctrlKey || event.metaKey || event.altKey) {
-                return;
-            }
-            // If no control is focused, find the most centered visible control
-            if (!focusedControl) {
-                var centerY = window.innerHeight / 2;
-                var closestControl = null;
-                var closestDistance = Infinity;
-                Object.keys(exampleConfigs).concat(Object.keys(cameraConfigs)).forEach(function(configKey) {
-                    var slider = document.getElementById("slider-" + configKey);
-                    if (slider && isElementInViewport(slider)) {
-                        var rect = slider.getBoundingClientRect();
-                        var controlCenterY = rect.top + rect.height / 2;
-                        var distance = Math.abs(controlCenterY - centerY);
-                        if (distance < closestDistance) {
-                            closestDistance = distance;
-                            closestControl = configKey;
+        });
+        </script>
+    
+    
+    <script>
+        // JavaScript to handle hover interaction for small images in the 2x3 grid
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scope the selection to the 2x3 grid container
+            const grid2x3Container = document.getElementById('grid2x3');
+            if (grid2x3Container) {
+                grid2x3Container.querySelectorAll('.grid2x3-thumbnail').forEach(thumbnail => {
+                    thumbnail.addEventListener('mouseenter', () => {
+                        const targetId = thumbnail.getAttribute('data-target');
+                        const hoverSrc = thumbnail.getAttribute('data-hover-src');
+                        const largeImage = grid2x3Container.querySelector(`#${targetId}`);
+            
+                        if (largeImage) {
+                            // Save the original src if not already saved
+                            if (!largeImage.hasAttribute('data-original-src')) {
+                                largeImage.setAttribute('data-original-src', largeImage.src);
+                            }
+                            largeImage.src = hoverSrc;
                         }
-                    }
+                    });
+            
+                    thumbnail.addEventListener('mouseleave', () => {
+                        const targetId = thumbnail.getAttribute('data-target');
+                        const largeImage = grid2x3Container.querySelector(`#${targetId}`);
+            
+                        if (largeImage && largeImage.hasAttribute('data-original-src')) {
+                            largeImage.src = largeImage.getAttribute('data-original-src');
+                            largeImage.removeAttribute('data-original-src'); // Clean up
+                        }
+                    });
                 });
-                if (closestControl) {
-                    setFocusedControl(closestControl);
-                }
-            }
-            if (!focusedControl) return;
-            if (event.key === 'ArrowLeft') {
-                event.preventDefault();
-                changeFrame(focusedControl, -1);
-            } else if (event.key === 'ArrowRight') {
-                event.preventDefault();
-                changeFrame(focusedControl, 1);
-            } else if (event.key === 'ArrowUp') {
-                event.preventDefault();
-                resetToDefault(focusedControl);
             }
         });
-        // Helper function to check if element is in viewport
-        function isElementInViewport(element) {
-            var rect = element.getBoundingClientRect();
-            return (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-            );
-        }
-        // Initialize when page loads
-        document.addEventListener("DOMContentLoaded", attachSliderEvents);
-        window.onload = attachSliderEvents;
-        // Collapsible examples functionality
-        function toggleExamples(sectionId) {
-            const container = document.getElementById(sectionId + '-examples');
-            // Make sure we get the actual button element, not a child element that was clicked
-            let button = event.target;
-            while (button && !button.classList.contains('show-more-btn')) {
-                button = button.parentElement;
-            }
-            if (!button) return; // Safety check
-            if (container.classList.contains('expanded')) {
-                // Collapse
-                container.classList.remove('expanded');
-                button.classList.remove('expanded');
-                button.innerHTML = 'Expand more examples <span class="icon">▼</span>';
-            } else {
-                // Expand
-                container.classList.add('expanded');
-                button.classList.add('expanded');
-                button.innerHTML = 'Collapse <span class="icon">▲</span>';
-            }
-        }
-        // Updated image update function with proper slider-level transition management
-        function updateImageByFrame(configKey, frameValue, config) {
-            // Cancel existing transitions to prevent overlapping animations
-            if (activeSliderTransitions[configKey]) {
-                cancelSliderTransitions(configKey, frameValue);
-                return; // Exit early - use immediate update
-            }
-            var imageNumber = String(frameValue).padStart(3, '0');
-            var sourcePath = config.dir + "/" + config.sourceSubdir + "/" + config.sourcePrefix + imageNumber + ".png";
-            var blenderPath = config.dir + "/" + config.blenderSubdir + "/" + config.blenderPrefix + frameValue + ".png";
-            var blenderfusionPath = config.dir + "/" + config.blenderfusionSubdir + "/" + config.blenderfusionPrefix + imageNumber + ".png";
-            var naPath = config.dir + "/" + config.naSubdir + "/" + config.naPrefix + imageNumber + ".png";
-            // Get image elements and their overlays
-            var imageElements = [
-                { img: document.getElementById("image-" + config.key + "-source"), overlay: document.getElementById("overlay-" + config.key + "-source"), src: sourcePath },
-                { img: document.getElementById("image-" + config.key + "-blender"), overlay: document.getElementById("overlay-" + config.key + "-blender"), src: blenderPath },
-                { img: document.getElementById("image-" + config.key + "-blenderfusion"), overlay: document.getElementById("overlay-" + config.key + "-blenderfusion"), src: blenderfusionPath },
-                { img: document.getElementById("image-" + config.key + "-na"), overlay: document.getElementById("overlay-" + config.key + "-na"), src: naPath }
-            ];
-            // Start new transition tracking for smooth navigation
-            activeSliderTransitions[configKey] = {
-                frameValue: frameValue, // Store frame value for reference
-                timeout: setTimeout(function() {
-                    if (activeSliderTransitions[configKey]) {
-                        // Complete transition: swap all images and clean up
-                        imageElements.forEach(function(element) {
-                            if (element.img) {
-                                element.img.src = element.src;
-                                if (element.img.parentElement) {
-                                    element.img.parentElement.classList.remove('transitioning');
-                                }
-                            }
-                        });
-                        delete activeSliderTransitions[configKey];
+        </script>
+
+<script>
+    // JavaScript to handle hover interaction for small images in the 1x3 grid ( for scene relighting)
+    document.addEventListener('DOMContentLoaded', () => {
+        // Scope the selection to the 1x3 grid container
+        const grid2x3Container = document.getElementById('grid1x3');
+        if (grid2x3Container) {
+            grid2x3Container.querySelectorAll('.grid1x3-thumbnail').forEach(thumbnail => {
+                thumbnail.addEventListener('mouseenter', () => {
+                    const targetId = thumbnail.getAttribute('data-target');
+                    const hoverSrc = thumbnail.getAttribute('data-hover-src');
+                    const largeImage = grid2x3Container.querySelector(`#${targetId}`);
+        
+                    if (largeImage) {
+                        // Save the original src if not already saved
+                        if (!largeImage.hasAttribute('data-original-src')) {
+                            largeImage.setAttribute('data-original-src', largeImage.src);
+                        }
+                        largeImage.src = hoverSrc;
                     }
-                }, 600)
-            };
-            // Apply smooth transition to each image
-            imageElements.forEach(function(element) {
-                if (element.img && element.overlay) {
-                    smoothImageTransition(element.img, element.overlay, element.src, configKey);
-                } else if (element.img) {
-                    // Fallback for images without overlay (backward compatibility)
-                    element.img.src = element.src;
-                }
+                });
+        
+                thumbnail.addEventListener('mouseleave', () => {
+                    const targetId = thumbnail.getAttribute('data-target');
+                    const largeImage = grid2x3Container.querySelector(`#${targetId}`);
+        
+                    if (largeImage && largeImage.hasAttribute('data-original-src')) {
+                        largeImage.src = largeImage.getAttribute('data-original-src');
+                        largeImage.removeAttribute('data-original-src'); // Clean up
+                    }
+                });
             });
         }
-        // Updated camera image update function with proper slider-level transition management
-        function updateCameraImageByFrame(configKey, frameValue, config) {
-            // Cancel existing transitions to prevent overlapping animations
-            if (activeSliderTransitions[configKey]) {
-                cancelSliderTransitions(configKey, frameValue);
-                return; // Exit early - use immediate update
-            }
-            // Camera control files use simple number naming: 0.png, 1.png, 2.png, etc.
-            var naPath = config.dir + "/" + config.naSubdir + "/" + frameValue + ".png";
-            var blenderfusionPath = config.dir + "/" + config.blenderfusionSubdir + "/" + frameValue + ".png";
-            var gtPath = config.dir + "/" + config.gtSubdir + "/" + frameValue + "_target.png";
-            // Get image elements and their overlays
-            var imageElements = [
-                { img: document.getElementById("image-" + config.key + "-na"), overlay: document.getElementById("overlay-" + config.key + "-na"), src: naPath },
-                { img: document.getElementById("image-" + config.key + "-blenderfusion"), overlay: document.getElementById("overlay-" + config.key + "-blenderfusion"), src: blenderfusionPath },
-                { img: document.getElementById("image-" + config.key + "-gt"), overlay: document.getElementById("overlay-" + config.key + "-gt"), src: gtPath }
-            ];
-            // Start new transition tracking for smooth navigation
-            activeSliderTransitions[configKey] = {
-                frameValue: frameValue, // Store frame value for reference
-                timeout: setTimeout(function() {
-                    if (activeSliderTransitions[configKey]) {
-                        // Complete transition: swap all images and clean up
-                        imageElements.forEach(function(element) {
-                            if (element.img) {
-                                element.img.src = element.src;
-                                if (element.img.parentElement) {
-                                    element.img.parentElement.classList.remove('transitioning');
-                                }
-                            }
-                        });
-                        delete activeSliderTransitions[configKey];
-                    }
-                }, 600)
-            };
-            // Apply smooth transition to each image
-            imageElements.forEach(function(element) {
-                if (element.img && element.overlay) {
-                    smoothImageTransition(element.img, element.overlay, element.src, configKey);
-                } else if (element.img) {
-                    // Fallback for images without overlay (backward compatibility)
-                    element.img.src = element.src;
-                }
-            });
-        }
+    });
     </script>
+
+    <script>
+        // JavaScript to handle hover interaction for large images
+        document.querySelectorAll('.hover-image').forEach(image => {
+            let originalSrc; // Variable to store the original src
+
+            image.addEventListener('mouseenter', () => {
+                originalSrc = image.src; // Save the original src
+                const hoverSrc = image.getAttribute('data-hover-src');
+                if (hoverSrc) {
+                    image.src = hoverSrc; // Change to hover src
+                }
+            });
+
+            image.addEventListener('mouseleave', () => {
+                if (originalSrc) {
+                    image.src = originalSrc; // Restore the original src
+                }
+            });
+        });
+    </script>
+
+    <!-- FOr Adding Layeredit results -->
+
+
+    
     <script>
         // Mobile video compatibility fix for WeChat and other strict browsers
         function initializeVideoCompatibility() {
@@ -1761,5 +913,4 @@
         setTimeout(initializeNavigation, 10);
         setTimeout(initializeNavigation, 100);
     </script>
-<center><font size="2">This is the free demo result. For a full version of this website, please go to  <a href="https://www6.waybackmachinedownloader.com/website-downloader-online/scrape-all-files/">Website Downloader</a></font></center></body>
 </html>
