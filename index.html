@@ -212,25 +212,31 @@
     <!-- Slider Section -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/@img-comparison-slider/component@7.1.0/dist/index.js"></script>
     <style>
+        .slider-section-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0;
+        }
         .slider-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 20px;
-            margin: 0 auto;               /* Center horizontally */
-            max-width: 1000px;            /* Set an appropriate max width */
-            padding: 0;                   /* Remove extra horizontal padding */
-            justify-content: center;      /* 🔧 Center grid content */
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0;
+            justify-items: center;
+            align-items: start;
         }
         .slider-item {
             width: 100%;
             max-width: 400px;
         }
-
         img-comparison-slider {
             width: 100%;
             border-radius: 8px;
         }
-
         figcaption1 {
             position: absolute;
             bottom: 8px;
@@ -241,40 +247,37 @@
         }
     </style>
     <p style="color: indigo; font-style: italic; font-size: 18px; text-align: center;">
-    Drag the slider to see the comparison with DeGLaD in Image space.
+        Drag the slider to see the comparison with DeGLaD in Image space.
     </p>
-
-    
-    <div class="slider-grid">
-        
-        <div class="slider-item">
-            <h3 style="text-align: center;">Scene Compositing</h3>
-            <img-comparison-slider>
-                <figure slot="first">
-                    <img src="assets/figures/comp/image_mpi_1.png" style="width: 100%">
-                    <figcaption1>Pixel α compositing</figcaption1>
-                </figure>
-                <figure slot="second">
-                    <img src="assets/figures/comp/ours_1.png" style="width: 100%">
-                    <figcaption1>FeatGLaC (Ours)</figcaption1>
-                </figure>
-            </img-comparison-slider>
+    <div class="slider-section-wrapper">
+        <div class="slider-grid">
+            <div class="slider-item">
+                <h3 style="text-align: center;">Scene Compositing</h3>
+                <img-comparison-slider>
+                    <figure slot="first">
+                        <img src="assets/figures/comp/image_mpi_1.png" style="width: 100%">
+                        <figcaption1>Pixel α compositing</figcaption1>
+                    </figure>
+                    <figure slot="second">
+                        <img src="assets/figures/comp/ours_1.png" style="width: 100%">
+                        <figcaption1>FeatGLaC (Ours)</figcaption1>
+                    </figure>
+                </img-comparison-slider>
+            </div>
+            <div class="slider-item">
+                <h3 style="text-align: center;">Object Insertion</h3>
+                <img-comparison-slider>
+                    <figure slot="first">
+                        <img src="assets/figures/comp/image_mpi_4.png" style="width: 100%">
+                        <figcaption1>Pixel α compositing</figcaption1>
+                    </figure>
+                    <figure slot="second">
+                        <img src="assets/figures/comp/ours_4.png" style="width: 100%">
+                        <figcaption1>FeatGLaC (Ours)</figcaption1>
+                    </figure>
+                </img-comparison-slider>
+            </div>
         </div>
-
-        <div class="slider-item">
-            <h3 style="text-align: center;">Object Insertion</h3>
-            <img-comparison-slider>
-                <figure slot="first">
-                    <img src="assets/figures/comp/image_mpi_4.png" style="width: 100%">
-                    <figcaption1>Pixel α compositing</figcaption1>
-                </figure>
-                <figure slot="second">
-                    <img src="assets/figures/comp/ours_4.png" style="width: 100%">
-                    <figcaption1>FeatGLaC (Ours)</figcaption1>
-                </figure>
-            </img-comparison-slider>
-        </div>
-
     </div>
 
 
