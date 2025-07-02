@@ -60,8 +60,8 @@
                 </p> -->
 
                 <p style="color: #FFF7D4">
-                    Our method enables <strong style="color: #ffe099">precise depth control</strong>  over object placement and scene composition in 3D space. 
-                    It introduces a <strong style="color: #ffe099">zero-shot compositing strategy</strong> that fuses these layers using internal features of pretrained diffusion models, producing realistic results without the need for post-processing. 
+                    Our method enables <strong style="color: #ffe099">precise depth control</strong>  over object placement and scene composition in a image. 
+                    It introduces a <strong style="color: #ffe099">zero-shot compositing strategy</strong> that fuses depth based layers using internal features of pretrained diffusion models, producing realistic results without the need for post-processing. 
                     We demonstrate high-quality edits in <em>scene compositing</em> and <em>object insertion</em>, achieving accurate depth ordering and visual consistency.
                 </p>
                 <div class="icon-container">
@@ -187,8 +187,7 @@
         The key idea is to integrate Depth-Guided Layer Decomposition (DeGLaD) in the feature space of diffusion models. Specifically, we propose Feature-Guided Layer Composition (FeatGLaC), 
         a layered guidance mechanism on the feature space of denoising UNet model which allows for image editing by progressively steering the 
         latents toward the desired edit while maintaining the orignal scene appearance throughout the denoising process. We validate our approach on 
-        two depth-aware editing tasks: a) object insertion that preserves object and scene identity with seamless blending, and b) depth-based compositing of two real scenes 
-        with accurate lighting.
+        two depth-aware editing tasks:
     </p>
     <ul class="text" style="margin-top: 0em;">
         <li><strong>Depth aware object Insertion</strong>: object insertion that preserves object and scene identity with seamless blending.</li>
@@ -207,9 +206,78 @@
         priors from pretrained image diffusion models via FeatGLaC. This enables depth-consistent, realistic
         scene compositions while preserving details in foreground and background regions. 
     </p>
+
     </div>
 
+    <!-- Slider Section -->
+    <!-- <script type="module" src="https://cdn.jsdelivr.net/npm/@img-comparison-slider/component@7.1.0/dist/index.js"></script>
+    <style>
+        .slider-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin: 0 auto;               /* Center horizontally */
+            max-width: 1000px;            /* Set an appropriate max width */
+            padding: 0;                   /* Remove extra horizontal padding */
+            justify-content: center;      /* 🔧 Center grid content */
+        }
+        .slider-item {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        img-comparison-slider {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        figcaption {
+            position: absolute;
+            bottom: 8px;
+            left: 12px;
+            color: white;
+            font-size: 14px;
+            text-shadow: 0 0 4px black;
+        }
+    </style>
+    <p style="color: indigo; font-style: italic; font-size: 18px; text-align: center;">
+    Drag the slider to see the comparison with DeGLaD in Image space.
+    </p> -->
+
     
+    <!-- <div class="slider-grid">
+        
+        <div class="slider-item">
+            <h3 style="text-align: center;">Scene Compositing</h3>
+            <img-comparison-slider>
+                <figure slot="first">
+                    <img src="assets/figures/comp/image_mpi_1.png" style="width: 100%">
+                    <figcaption>Pixel α compositing</figcaption>
+                </figure>
+                <figure slot="second">
+                    <img src="assets/figures/comp/ours_1.png" style="width: 100%">
+                    <figcaption>FeatGLaC (Ours)</figcaption>
+                </figure>
+            </img-comparison-slider>
+        </div>
+
+        <div class="slider-item">
+            <h3 style="text-align: center;">Object Insertion</h3>
+            <img-comparison-slider>
+                <figure slot="first">
+                    <img src="assets/figures/comp/image_mpi_4.png" style="width: 100%">
+                    <figcaption>Pixel α compositing</figcaption>
+                </figure>
+                <figure slot="second">
+                    <img src="assets/figures/comp/ours_4.png" style="width: 100%">
+                    <figcaption>FeatGLaC (Ours)</figcaption>
+                </figure>
+            </img-comparison-slider>
+        </div>
+
+    </div> -->
+
+
     <script>
     window.MathJax = {
         tex: {
@@ -247,7 +315,8 @@
     <h2 id="method-overview" class="text">Method Overview </h2>
     <h3 id="layering" class="text first-subsection"><img src="static/img/icons/buffer.svg" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">Step 1: Depth-Guided Layer Decomposition</h3>
     <p class="text">
-       Scene depth serves as an effective representation to model the underlying scene geometry and enables enhanced control over 3D scene structure, Given an input image,
+       Scene depth serves as an effective representation to model the underlying scene geometry and enables enhanced control over 3D scene structure. 
+       This motivates us to represent the scene as foreground and background layer based on user given depth. Given an input image,
        its depth map, and a user-specified depth d, DeGLaD decomposes the image into foreground (depth < d) and background (depth > d) layers
        based on the scene depth. This decomposition enables precise depth-aware editing via independent editing of each layer,
     </p>
@@ -628,12 +697,7 @@
     <d-appendix>
         <h3 style="margin-top: 30px; margin-bottom: 15px; font-size: 1.3em; color: #2c3e50;">BibTeX</h3>
         <div class="bibtex-container" style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px; margin: 15px 0; font-family: 'Courier New', Consolas, monospace; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <pre style="margin: 0; overflow-x: auto; line-height: 1.4; color: #2c3e50;"><code>@article{chen2025blenderfusion,
-  title={BlenderFusion: 3D-Grounded Visual Editing and Generative Compositing},
-  author={Chen, Jiacheng and Mehran, Ramin and Jia, Xuhui and Xie, Saining and Woo, Sanghyun},
-  year={2025},
-  journal={arXiv preprint arXiv:2506.17450}
-}</code></pre>
+            <pre style="margin: 0; overflow-x: auto; line-height: 1.4; color: #2c3e50;"><code>@article{...}</code></pre>
         </div>
         <d-footnote-list></d-footnote-list>
         <d-citation-list></d-citation-list>
